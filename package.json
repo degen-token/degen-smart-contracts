@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "hardhat": "^2.19.3"
   }
 }
