@@ -24,15 +24,7 @@ contract DegenToken is ERC20Burnable, ERC20Capped, ERC20Permit, Ownable {
         address from,
         address to,
         uint256 value
-    ) internal virtual override(ERC20Capped, ERC20) {
+    ) internal virtual override(ERC20, ERC20Capped) {
         super._update(from, to, value);
-
-        if (from == address(0)) {
-            uint256 maxSupply = cap();
-            uint256 supply = totalSupply();
-            if (supply > maxSupply) {
-                revert ERC20ExceededCap(supply, maxSupply);
-            }
-        }
     }
 }
