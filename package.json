@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "hardhat": "^2.19.3"
+    "hardhat": "^2.19.3",
+    "solidity-docgen": "^0.6.0-beta.36"
   }
 }
