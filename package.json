@@ -12,6 +12,7 @@
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "chai": "^4.3.10",
     "hardhat": "^2.19.3",
+    "mocha": "^10.2.0",
     "solidity-docgen": "^0.6.0-beta.36"
   }
 }
