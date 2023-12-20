@@ -8,6 +8,9 @@ import {IDegenAirdrop} from "./interfaces/IDegenAirdrop.sol";
 error AlreadyClaimed();
 error InvalidProof();
 
+/**
+ * @notice Distributes a balance of tokens according to a merkle root.
+ */
 contract DegenAirdrop is IDegenAirdrop {
     using SafeERC20 for IERC20;
 
