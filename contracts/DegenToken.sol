@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
 /**
- * @notice The  Degen token allows Farcaster community members to earn reputation tokens.
+ * @notice The Degen token allows Farcaster community members to earn reputation tokens.
  */
 contract DegenToken is ERC20Burnable, ERC20Permit, Ownable {
     string internal constant TOKEN_NAME = "Degen";
