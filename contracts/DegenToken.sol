@@ -6,18 +6,13 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-/// @title Degen Token
-/// @author Jacek Trocinski
-/// @notice The  Degen token allows Farcaster community members to earn reputation tokens.
+/**
+ * @notice The  Degen token allows Farcaster community members to earn reputation tokens.
+ */
 contract DegenToken is ERC20Burnable, ERC20Capped, ERC20Permit, Ownable {
-    /// @notice EIP-20 token name for this token.
     string internal constant TOKEN_NAME = "Degen";
-
-    /// @notice EIP-20 token symbol for this token.
     string internal constant TOKEN_SYMBOL = "DEGEN";
-
-    /// @notice Total number of tokens in circulation.
-    uint256 internal constant TOKEN_SUPPLY = 1_000_000_000; // 1 billion Degen
+    uint256 internal constant TOKEN_SUPPLY = 1_000_000_000;
 
     constructor()
         ERC20(TOKEN_NAME, TOKEN_SYMBOL)
