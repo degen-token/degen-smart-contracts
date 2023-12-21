@@ -1,6 +1,6 @@
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
-export default buildModule('Degen', (m) => {
+export default buildModule('DegenModule', (m) => {
   const degenToken = m.contract('DegenToken');
 
   const degenAirdrop = m.contract('DegenAirdrop', [
