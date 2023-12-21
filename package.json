@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "deploy:local": "npx hardhat ignition deploy ignition/modules/DegenToken.ts --network localhost",
-    "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input scripts/example.json",
+    "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input airdrop/airdrop.json",
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test"
