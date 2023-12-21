@@ -5,7 +5,9 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "deploy:local": "npx hardhat ignition deploy ignition/modules/DegenToken.ts --network localhost",
-    "node": "npx hardhat node"
+    "node": "npx hardhat node",
+    "test": "npx hardhat test",
+    "test:report-gas": "REPORT_GAS=true npx hardhat test"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.1"

@@ -5,8 +5,8 @@ The Degen token allows Farcaster community members to earn reputation tokens.
 Testing contracts.
 
 ```shell
-npx hardhat test
-REPORT_GAS=true npx hardhat test
+npm run test
+npm run test:report-gas
 ```
 
 Deploy to a local Hardhat node.
