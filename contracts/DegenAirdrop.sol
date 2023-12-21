@@ -3,29 +3,34 @@ pragma solidity ^0.8.20;
 
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import {IDegenAirdrop} from "./interfaces/IDegenAirdrop.sol";
 
 error AlreadyClaimed();
 error InvalidProof();
 
 /**
  * @notice Distributes a balance of tokens according to a merkle root.
+ * @dev Slightly modified version of: https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributor.sol
+ * Changes include:
+ * - remove "./interfaces/IMerkleDistributor.sol" inheritance
  */
-contract DegenAirdrop is IDegenAirdrop {
+contract DegenAirdrop {
     using SafeERC20 for IERC20;
 
-    address public immutable override token;
-    bytes32 public immutable override merkleRoot;
+    address public immutable token;
+    bytes32 public immutable merkleRoot;
 
     // This is a packed array of booleans.
     mapping(uint256 => uint256) private claimedBitMap;
+
+    // This event is triggered whenever a call to #claim succeeds.
+    event Claimed(uint256 index, address account, uint256 amount);
 
     constructor(address token_, bytes32 merkleRoot_) {
         token = token_;
         merkleRoot = merkleRoot_;
     }
 
-    function isClaimed(uint256 index) public view override returns (bool) {
+    function isClaimed(uint256 index) public view returns (bool) {
         uint256 claimedWordIndex = index / 256;
         uint256 claimedBitIndex = index % 256;
         uint256 claimedWord = claimedBitMap[claimedWordIndex];
@@ -46,7 +51,7 @@ contract DegenAirdrop is IDegenAirdrop {
         address account,
         uint256 amount,
         bytes32[] calldata merkleProof
-    ) public virtual override {
+    ) public virtual {
         if (isClaimed(index)) revert AlreadyClaimed();
 
         // Verify the merkle proof.
