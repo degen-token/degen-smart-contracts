@@ -5,6 +5,7 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "deploy:local": "npx hardhat ignition deploy ignition/modules/DegenToken.ts --network localhost",
+    "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input scripts/example.json",
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test"
@@ -16,7 +17,12 @@
     "@nomicfoundation/hardhat-ignition-ethers": "^0.13.1",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "chai": "^4.3.10",
+    "commander": "^11.1.0",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^6.9.1",
     "hardhat": "^2.19.3",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
