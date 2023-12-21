@@ -38,7 +38,7 @@ export function parseBalanceMap(
     : Object.keys(balances).map(
         (account): NewFormat => ({
           address: account,
-          earnings: `${balances[account].toString(16)}`,
+          earnings: `0x${balances[account].toString(16)}`,
           reasons: '',
         })
       );
