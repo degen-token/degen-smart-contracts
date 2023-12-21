@@ -12,6 +12,7 @@ REPORT_GAS=true npx hardhat test
 Deploy to a local Hardhat node.
 
 ```shell
-npx hardhat node
-npx hardhat ignition deploy ignition/modules/DegenToken.ts --network localhost
+npm run compile
+npm run node
+npm run deploy:local
 ```

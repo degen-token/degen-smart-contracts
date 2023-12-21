@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "npx hardhat compile",
+    "deploy:local": "npx hardhat ignition deploy ignition/modules/DegenToken.ts --network localhost",
+    "node": "npx hardhat node"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.1"
