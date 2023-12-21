@@ -1,18 +1,33 @@
 import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
-import { ethers } from 'hardhat';
+import { ethers, ignition } from 'hardhat';
+import DegenModule from '../ignition/modules/DegenModule';
 
-describe('Degen token contract', function () {
-  async function deployTokenFixture() {
+describe('Degen', function () {
+  // We define a fixture to reuse the same setup in every test.
+  // We use loadFixture to run this setup once, snapshot that state,
+  // and reset Hardhat Network to that snapshot in every test.
+  async function deployDegenFixture() {
+    // Contracts are deployed using the first signer/account by default
     const [owner, addr1, addr2] = await ethers.getSigners();
-    const degenToken = await ethers.deployContract('DegenToken');
-    return { degenToken, owner, addr1, addr2 };
+
+    const { degenAirdrop, degenToken } = await ignition.deploy(DegenModule);
+
+    return {
+      owner,
+      addr1,
+      addr2,
+      degenAirdrop,
+      degenToken,
+    };
   }
 
   describe('Deployment', function () {
     it('Should assign the total supply of tokens to the owner', async function () {
-      const { degenToken, owner } = await loadFixture(deployTokenFixture);
+      const { degenToken, owner } = await loadFixture(deployDegenFixture);
+
       const ownerBalance = await degenToken.balanceOf(owner.address);
+
       expect(await degenToken.totalSupply()).to.equal(ownerBalance);
     });
   });
@@ -20,7 +35,7 @@ describe('Degen token contract', function () {
   describe('Transactions', function () {
     it('Should transfer tokens between accounts', async function () {
       const { degenToken, owner, addr1, addr2 } = await loadFixture(
-        deployTokenFixture
+        deployDegenFixture
       );
 
       // Transfer 50 tokens from owner to addr1
@@ -36,7 +51,7 @@ describe('Degen token contract', function () {
 
     it('Should emit Transfer events', async function () {
       const { degenToken, owner, addr1, addr2 } = await loadFixture(
-        deployTokenFixture
+        deployDegenFixture
       );
 
       // Transfer 50 tokens from owner to addr1
@@ -52,7 +67,7 @@ describe('Degen token contract', function () {
 
     it("Should fail if sender doesn't have enough tokens", async function () {
       const { degenToken, owner, addr1 } = await loadFixture(
-        deployTokenFixture
+        deployDegenFixture
       );
       const initialOwnerBalance = await degenToken.balanceOf(owner.address);
 
@@ -72,7 +87,7 @@ describe('Degen token contract', function () {
   describe('Burn', function () {
     it('Should burn tokens', async function () {
       const { degenToken, owner, addr1 } = await loadFixture(
-        deployTokenFixture
+        deployDegenFixture
       );
       const initialTotalSupply = await degenToken.totalSupply();
 
