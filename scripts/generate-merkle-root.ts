@@ -22,4 +22,9 @@ json = JSON.parse(fs.readFileSync(program.opts().input, { encoding: 'utf8' }));
 
 if (typeof json !== 'object') throw new Error('Invalid JSON');
 
-console.log(JSON.stringify(parseBalanceMap(json)));
+const result = JSON.stringify(parseBalanceMap(json));
+fs.writeFileSync('./airdrop/airdrop_merkle_root.json', result);
+
+console.log(
+  'Merkle root generated successfully: ./airdrop/airdrop_merkle_root.json'
+);
