@@ -4,8 +4,8 @@
  * - Migrating from ethers v5 to v6
  * - Migrating from es5 to es2022
  */
-import MerkleTree from './merkle-tree';
 import { solidityPackedKeccak256 } from 'ethers';
+import MerkleTree from './merkle-tree';
 
 export default class BalanceTree {
   private readonly tree: MerkleTree;

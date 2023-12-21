@@ -4,7 +4,7 @@
  * - Migrating from ethers v5 to v6
  * - Migrating from es5 to es2022
  */
-import { toBeHex, isAddress, getAddress } from 'ethers';
+import { getAddress, isAddress, toBeHex } from 'ethers';
 import BalanceTree from './balance-tree';
 
 // This is the blob that gets distributed and pinned to IPFS.
