@@ -38,7 +38,7 @@ export function parseBalanceMap(
     : Object.keys(balances).map(
         (account): NewFormat => ({
           address: account,
-          earnings: `0x${balances[account].toString(16)}`,
+          earnings: `${balances[account].toString(16)}`,
           reasons: '',
         })
       );
@@ -54,6 +54,7 @@ export function parseBalanceMap(
     }
     const parsed = getAddress(account);
     if (memo[parsed]) throw new Error(`Duplicate address: ${parsed}`);
+    console.log(`Processing ${earnings} for ${account}`);
     const parsedNum = BigInt(earnings);
     if (parsedNum <= 0)
       throw new Error(`Invalid amount for account: ${account}`);
