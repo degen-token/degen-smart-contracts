@@ -27,7 +27,6 @@ const config: HardhatUserConfig = {
       gasPrice: 1000000000,
     },
   },
-  defaultNetwork: 'base-local',
 };
 
 export default config;
