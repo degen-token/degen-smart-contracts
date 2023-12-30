@@ -1,7 +1,7 @@
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
 const MERKLE_ROOT =
-  '0x1fdc478967655266cc4278ce69763296279bead96d8b67e1a2e6652f41101213';
+  '0xb1cf927d4e1cbac2bf6de588d7604a88b3cc8c3db561b5cd568ccaf7c6d5c9fa';
 
 export default buildModule('DegenModule', (m) => {
   const merkleRoot = m.getParameter('merkleRoot', MERKLE_ROOT);
