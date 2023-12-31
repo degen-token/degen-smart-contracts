@@ -110,7 +110,7 @@ describe('DegenToken', function () {
       const initialTotalSupply = await degenToken.totalSupply();
       const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
-      // Burn 25 tokens from addr1
+      // # Attempt to mint 25 tokens to the owner's account
       await expect(
         degenToken.connect(owner).mint(owner.address, 25)
       ).to.be.revertedWith('Degen::mint: minting not allowed yet');
