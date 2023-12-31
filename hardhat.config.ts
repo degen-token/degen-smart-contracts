@@ -7,7 +7,6 @@ import type { HardhatUserConfig } from 'hardhat/config';
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.20',
   networks: {
     // for mainnet
     base_mainnet: {
@@ -28,6 +27,15 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       baseGoerli: process.env.BASESCAN_API_KEY ?? '',
+    },
+  },
+  solidity: {
+    version: '0.8.20',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 999999,
+      },
     },
   },
 };
