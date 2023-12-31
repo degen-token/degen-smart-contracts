@@ -6,7 +6,10 @@ const MERKLE_ROOT =
 export default buildModule('DegenModule', (m) => {
   const merkleRoot = m.getParameter('merkleRoot', MERKLE_ROOT);
 
-  const degenToken = m.contract('DegenToken');
+  // Get the time for January 1, 2025 in seconds since the Unix Epoch
+  const nextMintingDate = Math.round(new Date('2025-01-01').getTime() / 1000);
+
+  const degenToken = m.contract('DegenToken', [nextMintingDate]);
 
   const degenAirdrop = m.contract('DegenAirdrop', [degenToken, merkleRoot]);
 
