@@ -42,6 +42,29 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     uint8 public constant MINT_CAP = 1;
 
     /**
+     * @dev The minting date has not been reached yet
+     */
+    error MintingDateNotReached();
+
+    /**
+     * @dev Cannot mint to the zero address
+     */
+    error MintToZeroAddressBlocked();
+
+    /**
+     * @dev Minting date must be set to occur after deployment
+     */
+    error MintAllowedAfterDeployOnly(
+        uint256 blockTimestamp,
+        uint256 mintingAllowedAfter
+    );
+
+    /**
+     * @dev You attempted to mint more than the cap allows
+     */
+    error DegenMintCapExceeded();
+
+    /**
      * @dev Construct a new Degen token
      * @param mintingAllowedAfter_ The timestamp after which minting may occur
      */
@@ -49,13 +72,15 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
         uint256 mintingAllowedAfter_
     )
         ERC20(TOKEN_NAME, TOKEN_SYMBOL)
-        ERC20Permit("TOKEN_NAME")
+        ERC20Permit(TOKEN_NAME)
         Ownable(msg.sender)
     {
-        require(
-            mintingAllowedAfter_ >= block.timestamp,
-            "Degen::constructor: minting can only begin after deployment"
-        );
+        if (mintingAllowedAfter_ < block.timestamp) {
+            revert MintAllowedAfterDeployOnly(
+                block.timestamp,
+                mintingAllowedAfter_
+            );
+        }
 
         _mint(msg.sender, TOKEN_SUPPLY * 10 ** decimals());
 
@@ -68,24 +93,21 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
      * @param amount The number of tokens to be minted
      */
     function mint(address to, uint96 amount) public onlyOwner {
-        require(
-            block.timestamp >= mintingAllowedAfter,
-            "Degen::mint: minting not allowed yet"
-        );
+        if (block.timestamp < mintingAllowedAfter) {
+            revert MintingDateNotReached();
+        }
 
-        require(
-            to != address(0),
-            "Degen::mint: cannot transfer to the zero address"
-        );
+        if (to == address(0)) {
+            revert MintToZeroAddressBlocked();
+        }
 
         // record the mint
         mintingAllowedAfter = block.timestamp + MINIMUM_TIME_BETWEEN_MINTS;
 
         // mint the amount
-        require(
-            amount <= (totalSupply() * MINT_CAP) / 100,
-            "Degen::mint: exceeded mint cap"
-        );
+        if (amount > (totalSupply() * MINT_CAP) / 100) {
+            revert DegenMintCapExceeded();
+        }
 
         _mint(to, amount);
     }
