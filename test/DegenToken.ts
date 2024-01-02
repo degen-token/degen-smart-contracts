@@ -1,3 +1,4 @@
+import { time } from '@nomicfoundation/hardhat-network-helpers';
 import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
 import { ethers, ignition } from 'hardhat';
@@ -107,13 +108,27 @@ describe('DegenToken', function () {
   describe('Mint', function () {
     it('Should fail if the set date and time are not met', async function () {
       const { degenToken, owner } = await loadFixture(deployDegenFixture);
-      const initialTotalSupply = await degenToken.totalSupply();
-      const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
       // # Attempt to mint 25 tokens to the owner's account
       await expect(
         degenToken.connect(owner).mint(owner.address, 25)
       ).to.be.revertedWith('Degen::mint: minting not allowed yet');
+    });
+
+    it('Should reject minting attempts by non-owner accounts', async function () {
+      const { degenToken, owner, addr1 } = await loadFixture(
+        deployDegenFixture
+      );
+      const initialTotalSupply = await degenToken.totalSupply();
+      const currentTimestampInSeconds = Math.round(Date.now() / 1000);
+
+      const mintingTimestamp = await degenToken.mintingAllowedAfter();
+      await time.increaseTo(mintingTimestamp);
+
+      // # Attempt to mint 25 tokens to the owner's account
+      await expect(
+        degenToken.connect(addr1).mint(addr1.address, 2500)
+      ).to.be.revertedWithCustomError(degenToken, 'OwnableUnauthorizedAccount');
     });
   });
 });
