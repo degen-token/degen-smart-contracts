@@ -33,12 +33,12 @@ contract DegenToken is ERC20, ERC20Burnable, Ownable {
     /**
      * @dev Minimum time between mints
      */
-    uint32 public constant minimumTimeBetweenMints = 1 days * 365;
+    uint32 public constant MINIMUM_TIME_BETWEEN_MINTS = 1 days * 365;
 
     /**
      * @dev Cap on the percentage of totalSupply that can be minted at each mint
      */
-    uint8 public constant mintCap = 1;
+    uint8 public constant MINT_CAP = 1;
 
     /**
      * @dev Construct a new Degen token
@@ -74,11 +74,11 @@ contract DegenToken is ERC20, ERC20Burnable, Ownable {
         );
 
         // record the mint
-        mintingAllowedAfter = block.timestamp + minimumTimeBetweenMints;
+        mintingAllowedAfter = block.timestamp + MINIMUM_TIME_BETWEEN_MINTS;
 
         // mint the amount
         require(
-            amount <= (totalSupply() * mintCap) / 100,
+            amount <= (totalSupply() * MINT_CAP) / 100,
             "Degen::mint: exceeded mint cap"
         );
 
