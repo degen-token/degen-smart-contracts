@@ -59,7 +59,7 @@ contract DegenAirdrop {
         address account,
         uint256 amount,
         bytes32[] calldata merkleProof
-    ) public virtual {
+    ) external virtual {
         if (isClaimed(index)) revert AlreadyClaimed();
 
         // Verify the merkle proof.
