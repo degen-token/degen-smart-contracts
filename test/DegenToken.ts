@@ -112,7 +112,7 @@ describe('DegenToken', function () {
       // Attempt to mint 25 tokens to the owner's account
       await expect(
         degenToken.connect(owner).mint(owner.address, 25)
-      ).to.be.revertedWith('Degen::mint: minting not allowed yet');
+      ).to.be.revertedWithCustomError(degenToken, 'MintingDateNotReached');
     });
 
     it('Should reject minting attempts by non-owner accounts', async function () {
@@ -140,9 +140,9 @@ describe('DegenToken', function () {
       await time.increaseTo(mintingTimestamp);
 
       // Attemp to mint tokens to addr1's account
-      await await expect(
+      await expect(
         degenToken.connect(owner).mint(addr1.address, mintAmount)
-      ).to.be.revertedWith('Degen::mint: exceeded mint cap');
+      ).to.be.revertedWithCustomError(degenToken, 'DegenMintCapExceeded');
     });
 
     it('Should mint 1% to the addr1 address', async function () {
