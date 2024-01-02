@@ -3,13 +3,14 @@ pragma solidity 0.8.20;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @notice The Degen token
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenToken is ERC20, ERC20Burnable, Ownable {
+contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     /**
      * @dev EIP-20 token name for this token
      */
@@ -46,7 +47,11 @@ contract DegenToken is ERC20, ERC20Burnable, Ownable {
      */
     constructor(
         uint256 mintingAllowedAfter_
-    ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
+    )
+        ERC20(TOKEN_NAME, TOKEN_SYMBOL)
+        ERC20Permit("TOKEN_NAME")
+        Ownable(msg.sender)
+    {
         require(
             mintingAllowedAfter_ >= block.timestamp,
             "Degen::constructor: minting can only begin after deployment"
