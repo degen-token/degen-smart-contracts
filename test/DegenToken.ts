@@ -125,7 +125,7 @@ describe('DegenToken', function () {
       const mintingTimestamp = await degenToken.mintingAllowedAfter();
       await time.increaseTo(mintingTimestamp);
 
-      // # Attempt to mint 25 tokens to the owner's account
+      // # Attempt to mint 2500 tokens to addr1's account
       await expect(
         degenToken.connect(addr1).mint(addr1.address, 2500)
       ).to.be.revertedWithCustomError(degenToken, 'OwnableUnauthorizedAccount');
