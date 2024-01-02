@@ -109,7 +109,7 @@ describe('DegenToken', function () {
     it('Should fail if the set date and time are not met', async function () {
       const { degenToken, owner } = await loadFixture(deployDegenFixture);
 
-      // # Attempt to mint 25 tokens to the owner's account
+      // Attempt to mint 25 tokens to the owner's account
       await expect(
         degenToken.connect(owner).mint(owner.address, 25)
       ).to.be.revertedWith('Degen::mint: minting not allowed yet');
@@ -119,8 +119,6 @@ describe('DegenToken', function () {
       const { degenToken, owner, addr1 } = await loadFixture(
         deployDegenFixture
       );
-      const initialTotalSupply = await degenToken.totalSupply();
-      const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
       const mintingTimestamp = await degenToken.mintingAllowedAfter();
       await time.increaseTo(mintingTimestamp);
@@ -129,6 +127,41 @@ describe('DegenToken', function () {
       await expect(
         degenToken.connect(addr1).mint(addr1.address, 2500)
       ).to.be.revertedWithCustomError(degenToken, 'OwnableUnauthorizedAccount');
+    });
+
+    it('Should fail when attempting to mint more than 1% of the tokens', async function () {
+      const { degenToken, owner, addr1 } = await loadFixture(
+        deployDegenFixture
+      );
+      const initialTotalSupply = await degenToken.totalSupply();
+      const mintAmount = initialTotalSupply / 50n;
+
+      const mintingTimestamp = await degenToken.mintingAllowedAfter();
+      await time.increaseTo(mintingTimestamp);
+
+      // Attemp to mint tokens to addr1's account
+      await await expect(
+        degenToken.connect(owner).mint(addr1.address, mintAmount)
+      ).to.be.revertedWith('Degen::mint: exceeded mint cap');
+    });
+
+    it('Should mint 1% to the addr1 address', async function () {
+      const { degenToken, owner, addr1 } = await loadFixture(
+        deployDegenFixture
+      );
+      const addr1Balance = await degenToken.balanceOf(addr1.address);
+      const initialTotalSupply = await degenToken.totalSupply();
+      const mintAmount = initialTotalSupply / 100n;
+
+      const mintingTimestamp = await degenToken.mintingAllowedAfter();
+      await time.increaseTo(mintingTimestamp);
+
+      await degenToken.connect(owner).mint(addr1.address, mintAmount);
+
+      // Mint tokens to addr1's account
+      expect(await degenToken.balanceOf(addr1.address)).to.equal(
+        addr1Balance + mintAmount
+      );
     });
   });
 });
