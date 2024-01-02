@@ -17,8 +17,15 @@ error InvalidProof();
 contract DegenAirdrop {
     using SafeERC20 for IERC20;
 
-    address public immutable token;
-    bytes32 public immutable merkleRoot;
+    /**
+     *  @dev The token to be distributed
+     */
+    address public immutable TOKEN;
+
+    /**
+     *  @dev The merkle root of the distribution
+     */
+    bytes32 public immutable MERKLE_ROOT;
 
     // This is a packed array of booleans.
     mapping(uint256 => uint256) private claimedBitMap;
@@ -27,8 +34,8 @@ contract DegenAirdrop {
     event Claimed(uint256 index, address account, uint256 amount);
 
     constructor(address token_, bytes32 merkleRoot_) {
-        token = token_;
-        merkleRoot = merkleRoot_;
+        TOKEN = token_;
+        MERKLE_ROOT = merkleRoot_;
     }
 
     function isClaimed(uint256 index) public view returns (bool) {
@@ -57,12 +64,12 @@ contract DegenAirdrop {
 
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
-        if (!MerkleProof.verify(merkleProof, merkleRoot, node))
+        if (!MerkleProof.verify(merkleProof, MERKLE_ROOT, node))
             revert InvalidProof();
 
         // Mark it claimed and send the token.
         _setClaimed(index);
-        IERC20(token).safeTransfer(account, amount);
+        IERC20(TOKEN).safeTransfer(account, amount);
 
         emit Claimed(index, account, amount);
     }

@@ -67,7 +67,7 @@ describe('DegenAirdrop', function () {
       it('Should return the zero merkle root', async function () {
         const { degenAirdrop } = await loadFixture(deployDegenFixture);
 
-        expect(await degenAirdrop.merkleRoot()).to.eq(ZERO_BYTES32);
+        expect(await degenAirdrop.MERKLE_ROOT()).to.eq(ZERO_BYTES32);
       });
 
       it('Should fail for empty proof', async function () {
