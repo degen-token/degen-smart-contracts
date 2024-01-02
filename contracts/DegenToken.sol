@@ -92,7 +92,7 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
      * @param to The address of the target account
      * @param amount The number of tokens to be minted
      */
-    function mint(address to, uint96 amount) public onlyOwner {
+    function mint(address to, uint96 amount) external onlyOwner {
         if (block.timestamp < mintingAllowedAfter) {
             revert MintingDateNotReached();
         }
