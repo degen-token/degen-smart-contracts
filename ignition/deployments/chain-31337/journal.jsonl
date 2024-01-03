@@ -10,3 +10,5 @@
 {"futureId":"DegenModule#DegenAirdrop","networkInteractionId":1,"nonce":1,"transaction":{"fees":{"maxFeePerGas":{"_kind":"bigint","value":"2750000000"},"maxPriorityFeePerGas":{"_kind":"bigint","value":"1000000000"}},"hash":"0x3206462dc797c4158ab62153de8ac54bea7a4ddce9de95df34aa9b49df19117d"},"type":"TRANSACTION_SEND"}
 {"futureId":"DegenModule#DegenAirdrop","hash":"0x3206462dc797c4158ab62153de8ac54bea7a4ddce9de95df34aa9b49df19117d","networkInteractionId":1,"receipt":{"blockHash":"0xe4f4bc116b9d1008708389ea19f4bfbff5152e26023a228a2b104469a9d117cd","blockNumber":2,"contractAddress":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","logs":[],"status":"SUCCESS"},"type":"TRANSACTION_CONFIRM"}
 {"futureId":"DegenModule#DegenAirdrop","result":{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","type":"SUCCESS"},"type":"DEPLOYMENT_EXECUTION_STATE_COMPLETE"}
+{"futureId":"DegenModule#DegenAirdrop","type":"WIPE_APPLY"}
+{"futureId":"DegenModule#DegenToken","type":"WIPE_APPLY"}
