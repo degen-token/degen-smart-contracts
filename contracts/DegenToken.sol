@@ -24,7 +24,7 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     /**
      * @dev Total number of tokens in circulation
      */
-    uint256 public constant TOKEN_SUPPLY = 7_000_000_000;
+    uint256 public constant TOKEN_INITIAL_SUPPLY = 7_000_000_000;
 
     /**
      * @dev The timestamp after which minting may occur
@@ -82,7 +82,7 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
             );
         }
 
-        _mint(msg.sender, TOKEN_SUPPLY * 10 ** decimals());
+        _mint(msg.sender, TOKEN_INITIAL_SUPPLY * 10 ** decimals());
 
         mintingAllowedAfter = mintingAllowedAfter_;
     }
