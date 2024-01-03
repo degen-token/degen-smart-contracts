@@ -32,7 +32,11 @@ contract DegenAirdrop {
     /**
      *  @dev This event is triggered whenever a call to #claim succeeds
      */
-    event Claimed(uint256 index, address account, uint256 amount);
+    event Claimed(
+        uint256 indexed index,
+        address indexed account,
+        uint256 indexed amount
+    );
 
     /**
      *  @dev The airdrop has already been claimed
