@@ -1,4 +1,7 @@
-import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import {
+  loadFixture,
+  time,
+} from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
 import { ethers, ignition } from 'hardhat';
 import DegenModule from '../ignition/modules/DegenModule';
@@ -193,7 +196,7 @@ describe('DegenAirdrop', function () {
           ).to.be.revertedWithCustomError(degenAirdrop, 'InvalidProof');
         });
 
-        it('Chould not be able to claim more than proof', async () => {
+        it('Should not be able to claim more than proof', async () => {
           const { addr1, degenAirdrop, proof0, degenToken } = await loadFixture(
             deployDegenSmallTreeFixture
           );
@@ -204,6 +207,22 @@ describe('DegenAirdrop', function () {
           await expect(
             degenAirdrop.connect(addr1).claim(0, addr1.address, 101n, proof0)
           ).to.be.revertedWithCustomError(degenAirdrop, 'InvalidProof');
+        });
+
+        it('Should not be able to claim after airdrop deadline', async () => {
+          const { addr1, degenAirdrop, proof0, degenToken } = await loadFixture(
+            deployDegenSmallTreeFixture
+          );
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 100n);
+
+          const endTimeTimestamp = await degenAirdrop.END_TIME();
+          await time.increaseTo(endTimeTimestamp);
+
+          await expect(
+            degenAirdrop.connect(addr1).claim(0, addr1.address, 100n, proof0)
+          ).to.be.revertedWithCustomError(degenAirdrop, 'ClaimWindowFinished');
         });
       });
     });
