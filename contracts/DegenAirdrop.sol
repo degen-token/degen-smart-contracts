@@ -67,7 +67,7 @@ contract DegenAirdrop {
     }
 
     /**
-     *  @dev Claims tokens for the given index, and transfers them to the given account
+     *  @dev Claim the given amount of the token to the given address
      *  @param index The index of the claimer in the merkle tree
      *  @param account The account to receive the tokens
      *  @param amount The amount of tokens to claim
