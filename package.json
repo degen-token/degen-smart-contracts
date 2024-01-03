@@ -11,8 +11,8 @@
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test",
-    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 1735689600",
-    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0x3D5d162b973B4D49391eD2c3dBEe645962668941 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 0xb1cf927d4e1cbac2bf6de588d7604a88b3cc8c3db561b5cd568ccaf7c6d5c9fa",
+    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896 1735689600",
+    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896 0x3edf309d20f61e89fa130972112cc09d88b7c2cbd599f4f8e3c7b4e06c517e63",
     "wipe:base-goerli": "npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenAirdrop' && npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenToken'"
   },
   "dependencies": {
