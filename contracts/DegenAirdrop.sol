@@ -3,6 +3,7 @@ pragma solidity 0.8.20;
 
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @notice Distributes a balance of tokens according to a merkle root.
@@ -11,7 +12,7 @@ import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProo
  * - remove "./interfaces/IMerkleDistributor.sol" inheritance
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenAirdrop {
+contract DegenAirdrop is Ownable {
     using SafeERC20 for IERC20;
 
     /**
@@ -23,6 +24,11 @@ contract DegenAirdrop {
      *  @dev The merkle root of the distribution
      */
     bytes32 public immutable MERKLE_ROOT;
+
+    /**
+     *  @dev The time after which the airdrop can no longer be claimed
+     */
+    uint256 public immutable END_TIME;
 
     /**
      *  @dev This is a packed array of booleans
@@ -53,7 +59,28 @@ contract DegenAirdrop {
      */
     error NotClaimAccount(address sender, address claimAccount);
 
-    constructor(address token_, bytes32 merkleRoot_) {
+    /**
+     *  @dev The end time is in the past
+     */
+    error EndTimeInPast();
+
+    /**
+     *  @dev The claim window has finished
+     */
+    error ClaimWindowFinished();
+
+    /**
+     *  @dev Cannot withdraw during the claim window
+     */
+    error NoWithdrawDuringClaim();
+
+    constructor(
+        address token_,
+        bytes32 merkleRoot_,
+        uint256 endTime_
+    ) Ownable(msg.sender) {
+        if (endTime_ <= block.timestamp) revert EndTimeInPast();
+        END_TIME = endTime_;
         TOKEN = token_;
         MERKLE_ROOT = merkleRoot_;
     }
@@ -95,6 +122,8 @@ contract DegenAirdrop {
         uint256 amount,
         bytes32[] calldata merkleProof
     ) external virtual {
+        if (block.timestamp > END_TIME) revert ClaimWindowFinished();
+
         if (isClaimed(index)) revert AlreadyClaimed();
 
         if (msg.sender != account) revert NotClaimAccount(msg.sender, account);
@@ -109,5 +138,14 @@ contract DegenAirdrop {
         IERC20(TOKEN).safeTransfer(account, amount);
 
         emit Claimed(index, account, amount);
+    }
+
+    function withdraw() external onlyOwner {
+        if (block.timestamp < END_TIME) revert NoWithdrawDuringClaim();
+
+        IERC20(TOKEN).safeTransfer(
+            msg.sender,
+            IERC20(TOKEN).balanceOf(address(this))
+        );
     }
 }
