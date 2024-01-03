@@ -133,6 +133,23 @@ describe('DegenAirdrop', function () {
             'ERC20InsufficientBalance'
           );
         });
+
+        it('Should set #isClaimed', async () => {
+          const { addr1, degenAirdrop, proof0, degenToken } = await loadFixture(
+            deployDegenSmallTreeFixture
+          );
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 100n);
+
+          expect(await degenAirdrop.isClaimed(0)).to.eq(false);
+          expect(await degenAirdrop.isClaimed(1)).to.eq(false);
+          await degenAirdrop
+            .connect(addr1)
+            .claim(0, addr1.address, 100n, proof0);
+          expect(await degenAirdrop.isClaimed(0)).to.eq(true);
+          expect(await degenAirdrop.isClaimed(1)).to.eq(false);
+        });
       });
     });
   });
