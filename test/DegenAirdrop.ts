@@ -89,19 +89,31 @@ describe('DegenAirdrop', function () {
             await loadFixture(deployDegenSmallTreeFixture);
 
           const airdropAddress = await degenAirdrop.getAddress();
-          degenToken.transfer(airdropAddress, 201);
+          degenToken.transfer(airdropAddress, 201n);
 
           await expect(
-            degenAirdrop.connect(addr1).claim(0, addr1.address, 100, proof0)
+            degenAirdrop.connect(addr1).claim(0, addr1.address, 100n, proof0)
           )
             .to.emit(degenAirdrop, 'Claimed')
-            .withArgs(0, addr1.address, 100);
+            .withArgs(0, addr1.address, 100n);
 
           await expect(
-            degenAirdrop.connect(addr2).claim(1, addr2.address, 101, proof1)
+            degenAirdrop.connect(addr2).claim(1, addr2.address, 101n, proof1)
           )
             .to.emit(degenAirdrop, 'Claimed')
-            .withArgs(1, addr2.address, 101);
+            .withArgs(1, addr2.address, 101n);
+        });
+
+        it('Should fail to claim if the account is not the same as the sender', async () => {
+          const { owner, addr1, degenAirdrop, proof0, degenToken } =
+            await loadFixture(deployDegenSmallTreeFixture);
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 100n);
+
+          await expect(
+            degenAirdrop.connect(owner).claim(0, addr1.address, 100, proof0)
+          ).to.be.revertedWithCustomError(degenAirdrop, 'NotClaimAccount');
         });
 
         it('Should change balance on token claim', async () => {
