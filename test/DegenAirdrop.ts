@@ -224,6 +224,28 @@ describe('DegenAirdrop', function () {
             degenAirdrop.connect(addr1).claim(0, addr1.address, 100n, proof0)
           ).to.be.revertedWithCustomError(degenAirdrop, 'ClaimWindowFinished');
         });
+
+        it('Should be able to withdraw after airdrop deadline', async () => {
+          const { owner, addr1, degenAirdrop, proof0, degenToken } =
+            await loadFixture(deployDegenSmallTreeFixture);
+
+          const transferAmount = 100n;
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, transferAmount);
+
+          const endTimeTimestamp = await degenAirdrop.END_TIME();
+          await time.increaseTo(endTimeTimestamp);
+
+          const totalSupply = await degenToken.totalSupply();
+
+          expect(await degenToken.balanceOf(owner.address)).to.eq(
+            totalSupply - transferAmount
+          );
+
+          await degenAirdrop.connect(owner).withdraw();
+
+          expect(await degenToken.balanceOf(owner.address)).to.eq(totalSupply);
+        });
       });
     });
   });
