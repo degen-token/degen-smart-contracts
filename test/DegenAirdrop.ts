@@ -88,13 +88,17 @@ describe('DegenAirdrop', function () {
           const airdropAddress = await degenAirdrop.getAddress();
           degenToken.transfer(airdropAddress, 201);
 
-          await expect(degenAirdrop.claim(0, addr1.address, 100, proof0))
+          await expect(
+            degenAirdrop.connect(addr1).claim(0, addr1.address, 100, proof0)
+          )
             .to.emit(degenAirdrop, 'Claimed')
             .withArgs(0, addr1.address, 100);
 
           const proof1 = merkleTree.getProof(1, addr2.address, 101n);
 
-          await expect(degenAirdrop.claim(1, addr2.address, 101, proof1))
+          await expect(
+            degenAirdrop.connect(addr2).claim(1, addr2.address, 101, proof1)
+          )
             .to.emit(degenAirdrop, 'Claimed')
             .withArgs(1, addr2.address, 101);
         });

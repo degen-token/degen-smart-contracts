@@ -4,9 +4,6 @@ pragma solidity 0.8.20;
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-error AlreadyClaimed();
-error InvalidProof();
-
 /**
  * @notice Distributes a balance of tokens according to a merkle root.
  * @dev Slightly modified version of: https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributor.sol
@@ -36,6 +33,21 @@ contract DegenAirdrop {
      *  @dev This event is triggered whenever a call to #claim succeeds
      */
     event Claimed(uint256 index, address account, uint256 amount);
+
+    /**
+     *  @dev The airdrop has already been claimed
+     */
+    error AlreadyClaimed();
+
+    /**
+     *  @dev The merkle proof is invalid
+     */
+    error InvalidProof();
+
+    /**
+     *  @dev The claim account is not the same as the person attempting to claim the account
+     */
+    error NotClaimAccount(address sender, address claimAccount);
 
     constructor(address token_, bytes32 merkleRoot_) {
         TOKEN = token_;
@@ -80,6 +92,8 @@ contract DegenAirdrop {
         bytes32[] calldata merkleProof
     ) external virtual {
         if (isClaimed(index)) revert AlreadyClaimed();
+
+        if (msg.sender != account) revert NotClaimAccount(msg.sender, account);
 
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
