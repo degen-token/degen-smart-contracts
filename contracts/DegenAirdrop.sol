@@ -27,10 +27,14 @@ contract DegenAirdrop {
      */
     bytes32 public immutable MERKLE_ROOT;
 
-    // This is a packed array of booleans.
+    /**
+     *  @dev This is a packed array of booleans
+     */
     mapping(uint256 => uint256) private claimedBitMap;
 
-    // This event is triggered whenever a call to #claim succeeds.
+    /**
+     *  @dev This event is triggered whenever a call to #claim succeeds
+     */
     event Claimed(uint256 index, address account, uint256 amount);
 
     constructor(address token_, bytes32 merkleRoot_) {
@@ -38,6 +42,10 @@ contract DegenAirdrop {
         MERKLE_ROOT = merkleRoot_;
     }
 
+    /**
+     *  @dev Returns true if the index has been marked claimed
+     *  @param index The index of the claimer in the merkle tree
+     */
     function isClaimed(uint256 index) public view returns (bool) {
         uint256 claimedWordIndex = index / 256;
         uint256 claimedBitIndex = index % 256;
@@ -46,6 +54,10 @@ contract DegenAirdrop {
         return claimedWord & mask == mask;
     }
 
+    /**
+     *  @dev Marks the index as claimed
+     *  @param index The index of the claimer in the merkle tree
+     */
     function _setClaimed(uint256 index) private {
         uint256 claimedWordIndex = index / 256;
         uint256 claimedBitIndex = index % 256;
@@ -54,6 +66,13 @@ contract DegenAirdrop {
             (1 << claimedBitIndex);
     }
 
+    /**
+     *  @dev Claims tokens for the given index, and transfers them to the given account
+     *  @param index The index of the claimer in the merkle tree
+     *  @param account The account to receive the tokens
+     *  @param amount The amount of tokens to claim
+     *  @param merkleProof The merkle proof
+     */
     function claim(
         uint256 index,
         address account,
