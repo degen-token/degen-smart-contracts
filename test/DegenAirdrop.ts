@@ -162,6 +162,23 @@ describe('DegenAirdrop', function () {
           expect(await degenAirdrop.isClaimed(0)).to.eq(true);
           expect(await degenAirdrop.isClaimed(1)).to.eq(false);
         });
+
+        it('Should not allow two claims', async () => {
+          const { addr1, degenAirdrop, proof0, degenToken } = await loadFixture(
+            deployDegenSmallTreeFixture
+          );
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 100n);
+
+          await degenAirdrop
+            .connect(addr1)
+            .claim(0, addr1.address, 100n, proof0);
+
+          await expect(
+            degenAirdrop.connect(addr1).claim(0, addr1.address, 100, proof0)
+          ).to.be.revertedWithCustomError(degenAirdrop, 'AlreadyClaimed');
+        });
       });
     });
   });
