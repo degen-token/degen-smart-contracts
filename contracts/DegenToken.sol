@@ -27,11 +27,6 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     uint256 public constant TOKEN_INITIAL_SUPPLY = 7_000_000_000;
 
     /**
-     * @dev The timestamp after which minting may occur
-     */
-    uint256 public mintingAllowedAfter;
-
-    /**
      * @dev Minimum time between mints
      */
     uint32 public constant MINIMUM_TIME_BETWEEN_MINTS = 1 days * 365;
@@ -40,6 +35,11 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
      * @dev Cap on the percentage of totalSupply that can be minted at each mint
      */
     uint8 public constant MINT_CAP = 1;
+
+    /**
+     * @dev The timestamp after which minting may occur
+     */
+    uint256 public mintingAllowedAfter;
 
     /**
      * @dev The minting date has not been reached yet
@@ -60,7 +60,7 @@ contract DegenToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     );
 
     /**
-     * @dev You attempted to mint more than the cap allows
+     * @dev Attempted to mint more than the cap allows
      */
     error DegenMintCapExceeded();
 
