@@ -226,8 +226,9 @@ describe('DegenAirdrop', function () {
         });
 
         it('Should be able to withdraw after airdrop deadline', async () => {
-          const { owner, addr1, degenAirdrop, proof0, degenToken } =
-            await loadFixture(deployDegenSmallTreeFixture);
+          const { owner, degenAirdrop, degenToken } = await loadFixture(
+            deployDegenSmallTreeFixture
+          );
 
           const transferAmount = 100n;
           const airdropAddress = await degenAirdrop.getAddress();
