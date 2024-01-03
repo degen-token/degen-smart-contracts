@@ -140,6 +140,9 @@ contract DegenAirdrop is Ownable {
         emit Claimed(index, account, amount);
     }
 
+    /**
+     *  @dev Withdraw the remaining tokens after the claim window has finished
+     */
     function withdraw() external onlyOwner {
         if (block.timestamp < END_TIME) revert NoWithdrawDuringClaim();
 
