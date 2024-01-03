@@ -11,8 +11,9 @@
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test",
-    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0xfa943867774C279582474FB6d82D0696067777A5",
-    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0x2e8915544DEbacbAe774359213f27Db91e924AfA 0xfa943867774C279582474FB6d82D0696067777A5 0x1fdc478967655266cc4278ce69763296279bead96d8b67e1a2e6652f41101213"
+    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 1735689600",
+    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0x3D5d162b973B4D49391eD2c3dBEe645962668941 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 0xb1cf927d4e1cbac2bf6de588d7604a88b3cc8c3db561b5cd568ccaf7c6d5c9fa",
+    "wipe:base-goerli": "npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenAirdrop' && npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenToken'"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.1"
