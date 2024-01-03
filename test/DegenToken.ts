@@ -1,5 +1,7 @@
-import { time } from '@nomicfoundation/hardhat-network-helpers';
-import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import {
+  loadFixture,
+  time,
+} from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
 import { ethers, ignition } from 'hardhat';
 import DegenModule from '../ignition/modules/DegenModule';

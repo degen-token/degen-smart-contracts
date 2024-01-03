@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition-ethers": "^0.13.1",
-    "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.3",
     "chai": "^4.3.10",
