@@ -192,6 +192,19 @@ describe('DegenAirdrop', function () {
             degenAirdrop.connect(addr1).claim(1, addr1.address, 101n, proof0)
           ).to.be.revertedWithCustomError(degenAirdrop, 'InvalidProof');
         });
+
+        it('Chould not be able to claim more than proof', async () => {
+          const { addr1, degenAirdrop, proof0, degenToken } = await loadFixture(
+            deployDegenSmallTreeFixture
+          );
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 201n);
+
+          await expect(
+            degenAirdrop.connect(addr1).claim(0, addr1.address, 101n, proof0)
+          ).to.be.revertedWithCustomError(degenAirdrop, 'InvalidProof');
+        });
       });
     });
   });
