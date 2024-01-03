@@ -80,7 +80,7 @@ describe('DegenAirdrop', function () {
 
       describe('Two account Merkle tree', async function () {
         it('Should be successful claim', async () => {
-          const { owner, addr1, addr2, merkleTree, degenAirdrop, degenToken } =
+          const { addr1, addr2, merkleTree, degenAirdrop, degenToken } =
             await loadFixture(deployDegenSmallTreeFixture);
 
           const proof0 = merkleTree.getProof(0, addr1.address, 100n);
@@ -101,6 +101,24 @@ describe('DegenAirdrop', function () {
           )
             .to.emit(degenAirdrop, 'Claimed')
             .withArgs(1, addr2.address, 101);
+        });
+
+        it('Should change balance on token claim', async () => {
+          const { addr1, merkleTree, degenAirdrop, degenToken } =
+            await loadFixture(deployDegenSmallTreeFixture);
+
+          const airdropAddress = await degenAirdrop.getAddress();
+          degenToken.transfer(airdropAddress, 100n);
+
+          const proof0 = merkleTree.getProof(0, addr1.address, 100n);
+
+          expect(await degenToken.balanceOf(addr1.address)).to.eq(0);
+
+          await degenAirdrop
+            .connect(addr1)
+            .claim(0, addr1.address, 100n, proof0);
+
+          expect(await degenToken.balanceOf(addr1.address)).to.eq(100n);
         });
       });
     });
