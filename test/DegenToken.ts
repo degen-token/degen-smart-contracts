@@ -11,23 +11,29 @@ describe('DegenToken', function () {
     // Contracts are deployed using the first signer/account by default
     const [owner, addr1, addr2] = await ethers.getSigners();
 
-    const { degenToken } = await ignition.deploy(DegenModule);
+    const { degenToken, degenAirdrop1 } = await ignition.deploy(DegenModule);
 
     return {
       owner,
       addr1,
       addr2,
       degenToken,
+      degenAirdrop1,
     };
   }
 
   describe('Deployment', function () {
-    it('Should assign the total supply of tokens to the owner', async function () {
-      const { degenToken, owner } = await loadFixture(deployDegenFixture);
+    it('Should allocate the total supply of tokens to the owner and airdrop1 contract', async function () {
+      const { owner, degenToken, degenAirdrop1 } = await loadFixture(
+        deployDegenFixture
+      );
 
       const ownerBalance = await degenToken.balanceOf(owner.address);
+      const airdrop1Balance = await degenToken.balanceOf(degenAirdrop1);
 
-      expect(await degenToken.totalSupply()).to.equal(ownerBalance);
+      expect(await degenToken.totalSupply()).to.equal(
+        ownerBalance + airdrop1Balance
+      );
     });
   });
 

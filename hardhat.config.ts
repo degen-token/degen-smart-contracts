@@ -18,13 +18,8 @@ const config: HardhatUserConfig = {
       url: 'https://goerli.base.org',
       accounts: [process.env.PRIVATE_KEY as string],
     },
-    sepolia: {
-      url: process.env.ALCHEMY_SEPOLIA_RPC_URL as string,
-      accounts: [process.env.PRIVATE_KEY as string],
-    },
-    // for local dev environment
-    'base-local': {
-      url: 'http://localhost:8545',
+    base_sepolia: {
+      url: process.env.ALCHEMY_BASE_SEPOLIA_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
     },
   },
