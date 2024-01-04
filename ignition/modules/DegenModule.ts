@@ -10,7 +10,7 @@ const AIRDROP1_MERKLE_ROOT =
 const AIRDROP1_TRANSFER_AMOUNT = 1000000000n * 10n ** 18n;
 
 const TOKEN_NEXT_MINTING_DATE = Math.round(
-  new Date('2025-01-01').getTime() / 1000
+  new Date('2028-01-01').getTime() / 1000
 );
 
 export default buildModule('DegenModule', (m) => {
