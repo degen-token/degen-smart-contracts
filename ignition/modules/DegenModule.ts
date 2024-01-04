@@ -19,17 +19,32 @@ const TOKEN_NEXT_MINTING_DATE = Math.round(
   new Date('2028-01-01').getTime() / 1000
 );
 
-export default buildModule('DegenModule', (m) => {
+const TokenModule = buildModule('TokenModule', (m) => {
+  /**
+   * Parameters
+   */
+  const nextMintingDate = m.getParameter(
+    'nextMintingDate',
+    TOKEN_NEXT_MINTING_DATE
+  );
+
+  /**
+   * Contracts
+   */
+  const degenToken = m.contract('DegenToken', [nextMintingDate]);
+
+  return { degenToken };
+});
+
+const DegenModule = buildModule('DegenModule', (m) => {
+  const { degenToken } = m.useModule(TokenModule);
+
   /**
    * Parameters
    */
   const airdrop1MerkleRoot = m.getParameter(
     'airdrop1MerkleRoot',
     AIRDROP1_MERKLE_ROOT
-  );
-  const nextMintingDate = m.getParameter(
-    'nextMintingDate',
-    TOKEN_NEXT_MINTING_DATE
   );
   const airdrop1ClaimDeadline = m.getParameter(
     'airdrop1ClaimDeadline',
@@ -39,7 +54,6 @@ export default buildModule('DegenModule', (m) => {
   /**
    * Contracts
    */
-  const degenToken = m.contract('DegenToken', [nextMintingDate]);
   const degenAirdrop1 = m.contract('DegenAirdrop1', [
     degenToken,
     airdrop1MerkleRoot,
@@ -53,3 +67,5 @@ export default buildModule('DegenModule', (m) => {
 
   return { degenToken, degenAirdrop1 };
 });
+
+export default DegenModule;
