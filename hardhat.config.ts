@@ -19,7 +19,7 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY as string],
     },
     sepolia: {
-      url: process.env.ALCHEMY_SEPOLIA_RPC_URL as string,
+      url: process.env.ALCHEMY_BASE_SEPOLIA_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
     },
   },
