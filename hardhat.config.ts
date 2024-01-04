@@ -22,11 +22,6 @@ const config: HardhatUserConfig = {
       url: process.env.ALCHEMY_SEPOLIA_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
     },
-    // for local dev environment
-    'base-local': {
-      url: 'http://localhost:8545',
-      accounts: [process.env.PRIVATE_KEY as string],
-    },
   },
   etherscan: {
     apiKey: {
