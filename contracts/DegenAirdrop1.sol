@@ -12,7 +12,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
  * - remove "./interfaces/IMerkleDistributor.sol" inheritance
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenAirdrop is Ownable {
+contract DegenAirdrop1 is Ownable {
     using SafeERC20 for IERC20;
 
     /**
