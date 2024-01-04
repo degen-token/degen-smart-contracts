@@ -12,8 +12,8 @@
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test",
-    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 1830297600 ",
-    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0x8acba91a17780db1efcdc7e53ea7da2cae1fa3182694ef17e761b794aa02ba3e",
+    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 1830297600 ",
+    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0x4340A66FE6A39326B1A135F2D95167F357f0Fa21 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 0x8acba91a17780db1efcdc7e53ea7da2cae1fa3182694ef17e761b794aa02ba3e",
     "verify:token:base-sepolia": "npx hardhat verify --network base_sepolia 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 1830297600 ",
     "verify:airdrop:base-sepolia": "npx hardhat verify --network base_sepolia 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0x8acba91a17780db1efcdc7e53ea7da2cae1fa3182694ef17e761b794aa02ba3e",
     "wipe:base-goerli": "npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenAirdrop' && npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenToken'"
