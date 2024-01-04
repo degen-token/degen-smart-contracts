@@ -18,12 +18,12 @@ describe('DegenAirdrop1', function () {
     // Contracts are deployed using the first signer/account by default
     const [owner, addr1, addr2] = await ethers.getSigners();
 
-    const merkleRoot = ZERO_BYTES32;
+    const airdrop1MerkleRoot = ZERO_BYTES32;
 
     const { degenAirdrop1, degenToken } = await ignition.deploy(DegenModule, {
       parameters: {
         DegenModule: {
-          merkleRoot,
+          airdrop1MerkleRoot,
         },
       },
     });
@@ -45,12 +45,12 @@ describe('DegenAirdrop1', function () {
       { account: addr1.address, amount: 100n },
       { account: addr2.address, amount: 101n },
     ]);
-    const merkleRoot = merkleTree.getHexRoot();
+    const airdrop1MerkleRoot = merkleTree.getHexRoot();
 
     const { degenAirdrop1, degenToken } = await ignition.deploy(DegenModule, {
       parameters: {
         DegenModule: {
-          merkleRoot,
+          airdrop1MerkleRoot,
         },
       },
     });
