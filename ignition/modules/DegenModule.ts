@@ -5,8 +5,10 @@ const MERKLE_ROOT =
 
 const NEXT_MINTING_DATE = Math.round(new Date('2025-01-01').getTime() / 1000);
 
-const AIRDROP_CLAIM_DEADLINE = Math.round(
-  new Date('2024-06-01').getTime() / 1000
+const AIRDROP1_TRANSFER_AMOUNT = 1000000000n * 10n ** 18n;
+
+const AIRDROP1_CLAIM_DEADLINE = Math.round(
+  new Date('2024-05-01').getTime() / 1000
 );
 
 export default buildModule('DegenModule', (m) => {
@@ -14,7 +16,7 @@ export default buildModule('DegenModule', (m) => {
   const nextMintingDate = m.getParameter('nextMintingDate', NEXT_MINTING_DATE);
   const airdropClaimDeadline = m.getParameter(
     'airdropClaimDeadline',
-    AIRDROP_CLAIM_DEADLINE
+    AIRDROP1_CLAIM_DEADLINE
   );
 
   const degenToken = m.contract('DegenToken', [nextMintingDate]);
@@ -24,6 +26,8 @@ export default buildModule('DegenModule', (m) => {
     merkleRoot,
     airdropClaimDeadline,
   ]);
+
+  m.call(degenToken, 'transfer', [degenAirdrop, AIRDROP1_TRANSFER_AMOUNT]);
 
   return { degenToken, degenAirdrop };
 });
