@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @notice Distributes a balance of tokens according to a merkle root.
+ * @notice Degen Airdrop 1, distributes tokens to a list of addresses
  * @dev Slightly modified version of: https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributorWithDeadline.sol
  * Changes include:
  * - remove "./interfaces/IMerkleDistributor.sol" inheritance
