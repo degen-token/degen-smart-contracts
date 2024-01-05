@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @notice Distributes a balance of tokens according to a merkle root.
- * @dev Slightly modified version of: https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributor.sol
+ * @dev Slightly modified version of: https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributorWithDeadline.sol
  * Changes include:
  * - remove "./interfaces/IMerkleDistributor.sol" inheritance
  * @custom:security-contact jacek@degen.tips
