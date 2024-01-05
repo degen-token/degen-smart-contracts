@@ -121,10 +121,16 @@ contract DegenToken is
         _mint(to, amount);
     }
 
+    /**
+     * @dev Pause all token transfers
+     */
     function pause() public onlyOwner {
         _pause();
     }
 
+    /**
+     * @dev Unpause all token transfers
+     */
     function unpause() public onlyOwner {
         _unpause();
     }
