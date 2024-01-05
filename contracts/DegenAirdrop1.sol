@@ -55,11 +55,6 @@ contract DegenAirdrop1 is Ownable {
     error InvalidProof();
 
     /**
-     *  @dev The claim account is not the same as the person attempting to claim the account
-     */
-    error NotClaimAccount(address sender, address claimAccount);
-
-    /**
      *  @dev The end time is in the past
      */
     error EndTimeInPast();
@@ -125,8 +120,6 @@ contract DegenAirdrop1 is Ownable {
         if (block.timestamp > END_TIME) revert ClaimWindowFinished();
 
         if (isClaimed(index)) revert AlreadyClaimed();
-
-        if (msg.sender != account) revert NotClaimAccount(msg.sender, account);
 
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
