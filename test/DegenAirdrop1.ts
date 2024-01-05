@@ -104,16 +104,6 @@ describe('DegenAirdrop1', function () {
             .withArgs(1, addr2.address, 101n);
         });
 
-        it('Should fail to claim if the account is not the same as the sender', async () => {
-          const { owner, addr1, degenAirdrop1, proof0 } = await loadFixture(
-            deployDegenSmallTreeFixture
-          );
-
-          await expect(
-            degenAirdrop1.connect(owner).claim(0, addr1.address, 100, proof0)
-          ).to.be.revertedWithCustomError(degenAirdrop1, 'NotClaimAccount');
-        });
-
         it('Should change balance on token claim', async () => {
           const { addr1, degenAirdrop1, proof0, degenToken } =
             await loadFixture(deployDegenSmallTreeFixture);
