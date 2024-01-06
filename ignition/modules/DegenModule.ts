@@ -8,7 +8,7 @@ const AIRDROP1_CLAIM_DEADLINE = Math.round(
 );
 
 const AIRDROP1_MERKLE_ROOT =
-  '0x8acba91a17780db1efcdc7e53ea7da2cae1fa3182694ef17e761b794aa02ba3e';
+  '0xf8f388bcafbbb8fd391550b4df59d79dfa1aecc525a473ef329d023574113fd2';
 
 const AIRDROP1_TRANSFER_AMOUNT = 1000000000n * 10n ** 18n;
 
