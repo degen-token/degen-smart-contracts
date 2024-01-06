@@ -33,7 +33,7 @@ contract DegenToken is
     /**
      * @dev Total number of tokens in circulation
      */
-    uint256 public constant TOKEN_INITIAL_SUPPLY = 7_000_000_000;
+    uint256 public constant TOKEN_INITIAL_SUPPLY = 36_965_935_954;
 
     /**
      * @dev Minimum time between mints

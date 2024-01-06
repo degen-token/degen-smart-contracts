@@ -10,7 +10,7 @@ const AIRDROP1_CLAIM_DEADLINE = Math.round(
 const AIRDROP1_MERKLE_ROOT =
   '0xf8f388bcafbbb8fd391550b4df59d79dfa1aecc525a473ef329d023574113fd2';
 
-const AIRDROP1_TRANSFER_AMOUNT = 1000000000n * 10n ** 18n;
+const AIRDROP1_TRANSFER_AMOUNT = 5544890393n * 10n ** 18n;
 
 /**
  * Degen Token Constants
