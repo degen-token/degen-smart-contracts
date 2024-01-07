@@ -128,9 +128,9 @@ contract DegenAirdrop1 is Ownable {
 
         // Mark it claimed and send the token.
         _setClaimed(index);
-        IERC20(TOKEN).safeTransfer(account, amount);
+        IERC20(TOKEN).safeTransfer(account, amount * 10 ** 18);
 
-        emit Claimed(index, account, amount);
+        emit Claimed(index, account, amount * 10 ** 18);
     }
 
     /**
