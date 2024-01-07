@@ -1,6 +1,6 @@
-# Degen Token
+# $DEGEN Smart Contracts
 
-The Degen token allows Farcaster community members to earn reputation tokens.
+This repository holds the code for $DEGEN smart contracts, including the token and Airdrop 1 contracts.
 
 ## Test
 
