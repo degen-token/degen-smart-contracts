@@ -7,8 +7,8 @@ const VESTING_CLIFF = Math.round(new Date('2024-03-06').getTime() / 1000);
 const VESTING_END = Math.round(new Date('2025-02-06').getTime() / 1000);
 const WETH_AMOUNT = 1n * 10n ** 18n;
 const DEGEN_AMOUNT = 100n * 10n ** 18n;
-const WETH_ADDRESS = '';
-const DEGEN_ADDRESS = '0x48A6c824140A68E1892E6bc7A6A3066758116Eb3';
+const WETH_ADDRESS = '0x4200000000000000000000000000000000000006';
+const DEGEN_ADDRESS = '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed';
 
 const OtcEscrowModule = buildModule('OtcEscrowModule', (m) => {
   /**
