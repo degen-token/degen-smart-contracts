@@ -47,6 +47,7 @@ contract OtcEscrow is Ownable {
     address public immutable BUYER;
     address public immutable SELLER;
 
+    address public immutable VESTING_CONTRACT;
     uint256 public immutable VESTING_START;
     uint256 public immutable VESTING_END;
     uint256 public immutable VESTING_CLIFF;
@@ -74,6 +75,7 @@ contract OtcEscrow is Ownable {
     constructor(
         address _buyer,
         address _seller,
+        address _vestingContract,
         uint256 _vestingStart,
         uint256 _vestingCliff,
         uint256 _vestingEnd,
@@ -85,6 +87,7 @@ contract OtcEscrow is Ownable {
         BUYER = _buyer;
         SELLER = _seller;
 
+        VESTING_CONTRACT = _vestingContract;
         VESTING_START = _vestingStart;
         VESTING_CLIFF = _vestingCliff;
         VESTING_END = _vestingEnd;
@@ -113,23 +116,13 @@ contract OtcEscrow is Ownable {
         // Transfer expected WETH from buyer
         IERC20(WETH).safeTransferFrom(BUYER, address(this), WETH_AMOUNT);
 
-        // Create Vesting contract
-        OtcVesting vesting = new OtcVesting(
-            DEGEN,
-            BUYER,
-            DEGEN_AMOUNT,
-            VESTING_START,
-            VESTING_CLIFF,
-            VESTING_END
-        );
-
         // Transfer degen to vesting contract
-        IERC20(DEGEN).safeTransfer(address(vesting), DEGEN_AMOUNT);
+        IERC20(DEGEN).safeTransfer(VESTING_CONTRACT, DEGEN_AMOUNT);
 
         // Transfer WETH to seller
         IERC20(WETH).safeTransfer(SELLER, WETH_AMOUNT);
 
-        emit VestingDeployed(address(vesting));
+        emit VestingDeployed(VESTING_CONTRACT);
     }
 
     /**

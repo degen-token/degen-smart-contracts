@@ -10,7 +10,31 @@ const DEGEN_AMOUNT = 100n * 10n ** 18n; // 100 DEGEN
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006';
 const DEGEN_ADDRESS = '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed';
 
+const OtcVestingModule = buildModule('OtcVestingModule', (m) => {
+  /**
+   * Parameters
+   */
+  const buyer = m.getParameter('buyer', BUYER);
+  const vestingStart = m.getParameter('vestingStart', VESTING_START);
+  const vestingCliff = m.getParameter('vestingCliff', VESTING_CLIFF);
+  const vestingEnd = m.getParameter('vestingEnd', VESTING_END);
+  const degenAddress = m.getParameter('degenAddress', DEGEN_ADDRESS);
+
+  const otcVesting = m.contract('OtcVesting', [
+    degenAddress,
+    buyer,
+    DEGEN_AMOUNT,
+    vestingStart,
+    vestingCliff,
+    vestingEnd,
+  ]);
+
+  return { otcVesting };
+});
+
 const OtcEscrowModule = buildModule('OtcEscrowModule', (m) => {
+  const { otcVesting } = m.useModule(OtcVestingModule);
+
   /**
    * Parameters
    */
@@ -22,6 +46,7 @@ const OtcEscrowModule = buildModule('OtcEscrowModule', (m) => {
   const otcEscrow = m.contract('OtcEscrow', [
     buyer,
     seller,
+    otcVesting,
     VESTING_START,
     VESTING_CLIFF,
     VESTING_END,
