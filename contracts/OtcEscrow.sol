@@ -25,7 +25,7 @@ contract OtcEscrow is Ownable {
     /**
      *  @dev This event is called when the vesting contract is deployed
      */
-    event VestingDeployed(address vesting);
+    event VestingDeployed(address indexed vesting);
 
     /* ====== Errors ======== */
 

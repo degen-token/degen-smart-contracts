@@ -3,6 +3,10 @@ pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+/**
+ * @title OtcTestToken1
+ * @custom:security-contact jacek@degen.tips
+ */
 contract OtcTestToken1 is ERC20 {
     /**
      * @dev Total number of tokens in circulation
