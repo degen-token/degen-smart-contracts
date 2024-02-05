@@ -2,9 +2,9 @@ import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
 const BUYER = '0xf1E7DBEDD9e06447e2F99B1310c09287b734addc';
 const SELLER = '0xeE6fb338E75C43cc9153FF86600700459e9871Da';
-const VESTING_START = Math.round(new Date('2024-02-06').getTime() / 1000);
-const VESTING_CLIFF = Math.round(new Date('2024-03-06').getTime() / 1000);
-const VESTING_END = Math.round(new Date('2025-02-06').getTime() / 1000);
+const VESTING_START = Math.round(new Date('2024-02-12').getTime() / 1000);
+const VESTING_CLIFF = Math.round(new Date('2024-03-12').getTime() / 1000);
+const VESTING_END = Math.round(new Date('2025-02-12').getTime() / 1000);
 const WETH_AMOUNT = 1n * 10n ** 18n;
 const DEGEN_AMOUNT = 100n * 10n ** 18n;
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006';
