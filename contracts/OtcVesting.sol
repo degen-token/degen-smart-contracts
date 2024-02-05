@@ -44,7 +44,7 @@ contract OtcVesting is Ownable {
     /* ======== State Variables ======= */
 
     address public immutable DEGEN;
-    address public recipient;
+    address public immutable RECIPIENT;
 
     uint256 public immutable VESTING_AMOUNT;
     uint256 public immutable VESTING_BEGIN;
@@ -67,7 +67,7 @@ contract OtcVesting is Ownable {
             revert VestingEndDateBeforeCliffDate();
 
         DEGEN = degen_;
-        recipient = recipient_;
+        RECIPIENT = recipient_;
 
         VESTING_AMOUNT = vestingAmount_;
         VESTING_BEGIN = vestingBegin_;
@@ -90,12 +90,12 @@ contract OtcVesting is Ownable {
                 (VESTING_END - VESTING_BEGIN);
             lastUpdate = block.timestamp;
         }
-        IERC20(DEGEN).transfer(recipient, amount);
+        IERC20(DEGEN).transfer(RECIPIENT, amount);
     }
 
     function recoverToken(address token_) external onlyOwner {
         if (token_ == DEGEN) revert DegenTokenCannotBeTransfered();
         uint256 amount = IERC20(token_).balanceOf(address(this));
-        IERC20(token_).transfer(recipient, amount);
+        IERC20(token_).transfer(RECIPIENT, amount);
     }
 }
