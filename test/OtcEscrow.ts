@@ -75,7 +75,7 @@ describe('OtcEscrow', function () {
     });
 
     it('Should fail if swap is executed twice', async function () {
-      const { otcTestToken1, otcTestToken2, buyAddr, sellAddr, otcEscrow } =
+      const { otcTestToken1, otcTestToken2, buyAddr, otcEscrow } =
         await loadFixture(deployDegenFixture);
 
       await otcTestToken1.transfer(buyAddr.address, 10000n * 10n ** 18n);
