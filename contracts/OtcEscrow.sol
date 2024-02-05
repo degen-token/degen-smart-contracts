@@ -26,23 +26,17 @@ contract OtcEscrow is Ownable {
      */
     event VestingDeployed(address vesting);
 
-    /* ====== Modifiers ======== */
-
-    /**
-     * @dev Throws if run more than once
-     */
-    modifier onlyOnce() {
-        require(!hasRun, "swap already executed");
-        hasRun = true;
-        _;
-    }
-
     /* ====== Errors ======== */
 
     /**
-     *  @dev The airdrop has already been claimed
+     *  @dev Insufficient DEGEN balance in the contract
      */
     error InsufficientDegen();
+
+    /**
+     *  @dev The contract has already been run
+     */
+    error SwapAlreadyExecuted();
 
     /* ======== State Variables ======= */
 
@@ -59,7 +53,7 @@ contract OtcEscrow is Ownable {
     uint256 public immutable wethAmount;
     uint256 public immutable degenAmount;
 
-    bool hasRun;
+    bool public hasRun;
 
     /* ====== Constructor ======== */
 
@@ -86,7 +80,7 @@ contract OtcEscrow is Ownable {
         uint256 _degenAmount,
         address _wethAddress,
         address _degenAddress
-    ) Ownable(_seller) {
+    ) Ownable(msg.sender) {
         buyer = _buyer;
         seller = _seller;
 
@@ -108,7 +102,10 @@ contract OtcEscrow is Ownable {
      * Executes the OTC deal. Sends the WETH from the buyer to seller, and
      * locks the DEGEN in the vesting contract. Can only be called once.
      */
-    function swap() external onlyOnce {
+    function swap() external onlyOwner {
+        if (hasRun) revert SwapAlreadyExecuted();
+        hasRun = true;
+
         if (IERC20(degen).balanceOf(address(this)) < degenAmount)
             revert InsufficientDegen();
 
