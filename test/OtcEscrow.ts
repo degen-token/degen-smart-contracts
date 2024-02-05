@@ -42,7 +42,7 @@ describe('OtcEscrow', function () {
     };
   }
 
-  describe('OTC Swap', function () {
+  describe('Swap', function () {
     it('Should fail if the swap contract does not have enough degen tokens.', async function () {
       const { otcEscrow } = await loadFixture(deployDegenFixture);
 
