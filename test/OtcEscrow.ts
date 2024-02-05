@@ -52,7 +52,7 @@ describe('OtcEscrow', function () {
       );
     });
 
-    it('Should 2222', async function () {
+    it('Should complete the swap successfully', async function () {
       const { otcTestToken1, otcTestToken2, buyAddr, sellAddr, otcEscrow } =
         await loadFixture(deployDegenFixture);
 
