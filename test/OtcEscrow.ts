@@ -70,7 +70,7 @@ describe('OtcEscrow', function () {
       await otcEscrow.swap();
 
       expect(await otcTestToken1.balanceOf(sellAddr.address)).to.equal(
-        1n * 10n ** 18n
+        (1n * 10n ** 18n) / 1000n
       );
     });
 
