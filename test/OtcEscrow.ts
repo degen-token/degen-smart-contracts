@@ -73,5 +73,28 @@ describe('OtcEscrow', function () {
         1n * 10n ** 18n
       );
     });
+
+    it('Should fail if swap is executed twice', async function () {
+      const { otcTestToken1, otcTestToken2, buyAddr, sellAddr, otcEscrow } =
+        await loadFixture(deployDegenFixture);
+
+      await otcTestToken1.transfer(buyAddr.address, 10000n * 10n ** 18n);
+      await otcTestToken2.transfer(otcEscrow, 100n * 10n ** 18n);
+
+      await expect(
+        otcTestToken1
+          .connect(buyAddr)
+          .approve(otcEscrow.target, 10000n * 10n ** 18n)
+      )
+        .to.emit(otcTestToken1, 'Approval')
+        .withArgs(buyAddr.address, otcEscrow.target, 10000n * 10n ** 18n);
+
+      await otcEscrow.swap();
+
+      await expect(otcEscrow.swap()).to.be.revertedWithCustomError(
+        otcEscrow,
+        'SwapAlreadyExecuted'
+      );
+    });
   });
 });
