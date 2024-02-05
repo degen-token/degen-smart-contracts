@@ -4,13 +4,13 @@ pragma solidity 0.8.20;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract OtcVesting {
-    address public degen;
+    address public immutable DEGEN;
     address public recipient;
 
-    uint256 public vestingAmount;
-    uint256 public vestingBegin;
-    uint256 public vestingCliff;
-    uint256 public vestingEnd;
+    uint256 public immutable VESTING_AMOUNT;
+    uint256 public immutable VESTING_BEGIN;
+    uint256 public immutable VESTING_CLIFF;
+    uint256 public immutable VESTING_END;
 
     uint256 public lastUpdate;
 
@@ -35,15 +35,15 @@ contract OtcVesting {
             "TreasuryVester.constructor: end is too early"
         );
 
-        degen = degen_;
+        DEGEN = degen_;
         recipient = recipient_;
 
-        vestingAmount = vestingAmount_;
-        vestingBegin = vestingBegin_;
-        vestingCliff = vestingCliff_;
-        vestingEnd = vestingEnd_;
+        VESTING_AMOUNT = vestingAmount_;
+        VESTING_BEGIN = vestingBegin_;
+        VESTING_CLIFF = vestingCliff_;
+        VESTING_END = vestingEnd_;
 
-        lastUpdate = vestingBegin;
+        lastUpdate = VESTING_BEGIN;
     }
 
     function setRecipient(address recipient_) public {
@@ -56,24 +56,24 @@ contract OtcVesting {
 
     function claim() public {
         require(
-            block.timestamp >= vestingCliff,
+            block.timestamp >= VESTING_CLIFF,
             "TreasuryVester.claim: not time yet"
         );
         uint256 amount;
-        if (block.timestamp >= vestingEnd) {
-            amount = IERC20(degen).balanceOf(address(this));
+        if (block.timestamp >= VESTING_END) {
+            amount = IERC20(DEGEN).balanceOf(address(this));
         } else {
             amount =
-                (vestingAmount * (block.timestamp - lastUpdate)) /
-                (vestingEnd - vestingBegin);
+                (VESTING_AMOUNT * (block.timestamp - lastUpdate)) /
+                (VESTING_END - VESTING_BEGIN);
             lastUpdate = block.timestamp;
         }
-        IERC20(degen).transfer(recipient, amount);
+        IERC20(DEGEN).transfer(recipient, amount);
     }
 
     function recoverToken(address token_) public {
         require(
-            token_ != degen,
+            token_ != DEGEN,
             "TreasuryVester.recoverToken: only recover tokens accidentally sent to the contract"
         );
         uint256 amount = IERC20(token_).balanceOf(address(this));
