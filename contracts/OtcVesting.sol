@@ -37,7 +37,7 @@ contract OtcVesting is Ownable {
     error VestingCliffDateNotReached();
 
     /**
-     *  @dev The vesting cliff date has not been reached yet
+     *  @dev The DEGEN token cannot be transfered out of the contract
      */
     error DegenTokenCannotBeTransfered();
 
@@ -94,10 +94,7 @@ contract OtcVesting is Ownable {
     }
 
     function recoverToken(address token_) external onlyOwner {
-        require(
-            token_ != DEGEN,
-            "TreasuryVester.recoverToken: only recover tokens accidentally sent to the contract"
-        );
+        if (token_ == DEGEN) revert DegenTokenCannotBeTransfered();
         uint256 amount = IERC20(token_).balanceOf(address(this));
         IERC20(token_).transfer(recipient, amount);
     }
