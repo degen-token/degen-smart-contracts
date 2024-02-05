@@ -11,6 +11,7 @@ import {OtcVesting} from "./OtcVesting.sol";
  * Changes include:
  * - Upgrading the Solidity version
  * - Renaming variables
+ * - Removed modifiers
  * A simple OTC swap contract allowing two users to set the parameters of an OTC
  * deal in the constructor arguments, and deposits the sold tokens into a vesting
  * contract when a swap is completed.
