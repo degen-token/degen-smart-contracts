@@ -40,18 +40,18 @@ contract OtcEscrow is Ownable {
 
     /* ======== State Variables ======= */
 
-    address public immutable weth;
-    address public immutable degen;
+    address public immutable WETH;
+    address public immutable DEGEN;
 
-    address public immutable buyer;
-    address public immutable seller;
+    address public immutable BUYER;
+    address public immutable SELLER;
 
-    uint256 public immutable vestingStart;
-    uint256 public immutable vestingEnd;
-    uint256 public immutable vestingCliff;
+    uint256 public immutable VESTING_START;
+    uint256 public immutable VESTING_END;
+    uint256 public immutable VESTING_CLIFF;
 
-    uint256 public immutable wethAmount;
-    uint256 public immutable degenAmount;
+    uint256 public immutable WETH_AMOUNT;
+    uint256 public immutable DEGEN_AMOUNT;
 
     bool public hasRun;
 
@@ -65,8 +65,8 @@ contract OtcEscrow is Ownable {
      * @param _vestingStart Timestamp of vesting start
      * @param _vestingCliff Timestamp of vesting cliff
      * @param _vestingEnd   Timestamp of vesting end
-     * @param _wethAmount   Amount of WETH swapped for the sale
-     * @param _degenAmount  Amount of DEGEN swapped for the sale
+     * @param _weth_amount   Amount of WETH swapped for the sale
+     * @param _degen_amount  Amount of DEGEN swapped for the sale
      * @param _wethAddress  Address of the WETH token
      * @param _degenAddress Address of the Degen token
      */
@@ -76,23 +76,23 @@ contract OtcEscrow is Ownable {
         uint256 _vestingStart,
         uint256 _vestingCliff,
         uint256 _vestingEnd,
-        uint256 _wethAmount,
-        uint256 _degenAmount,
+        uint256 _weth_amount,
+        uint256 _degen_amount,
         address _wethAddress,
         address _degenAddress
     ) Ownable(msg.sender) {
-        buyer = _buyer;
-        seller = _seller;
+        BUYER = _buyer;
+        SELLER = _seller;
 
-        vestingStart = _vestingStart;
-        vestingCliff = _vestingCliff;
-        vestingEnd = _vestingEnd;
+        VESTING_START = _vestingStart;
+        VESTING_CLIFF = _vestingCliff;
+        VESTING_END = _vestingEnd;
 
-        wethAmount = _wethAmount;
-        degenAmount = _degenAmount;
+        WETH_AMOUNT = _weth_amount;
+        DEGEN_AMOUNT = _degen_amount;
 
-        weth = _wethAddress;
-        degen = _degenAddress;
+        WETH = _wethAddress;
+        DEGEN = _degenAddress;
         hasRun = false;
     }
 
@@ -106,27 +106,27 @@ contract OtcEscrow is Ownable {
         if (hasRun) revert SwapAlreadyExecuted();
         hasRun = true;
 
-        if (IERC20(degen).balanceOf(address(this)) < degenAmount)
+        if (IERC20(DEGEN).balanceOf(address(this)) < DEGEN_AMOUNT)
             revert InsufficientDegen();
 
         // Transfer expected WETH from buyer
-        IERC20(weth).safeTransferFrom(buyer, address(this), wethAmount);
+        IERC20(WETH).safeTransferFrom(BUYER, address(this), WETH_AMOUNT);
 
         // Create Vesting contract
         OtcVesting vesting = new OtcVesting(
-            degen,
-            buyer,
-            degenAmount,
-            vestingStart,
-            vestingCliff,
-            vestingEnd
+            DEGEN,
+            BUYER,
+            DEGEN_AMOUNT,
+            VESTING_START,
+            VESTING_CLIFF,
+            VESTING_END
         );
 
         // Transfer degen to vesting contract
-        IERC20(degen).safeTransfer(address(vesting), degenAmount);
+        IERC20(DEGEN).safeTransfer(address(vesting), DEGEN_AMOUNT);
 
         // Transfer WETH to seller
-        IERC20(weth).safeTransfer(seller, wethAmount);
+        IERC20(WETH).safeTransfer(SELLER, WETH_AMOUNT);
 
         emit VestingDeployed(address(vesting));
     }
@@ -135,15 +135,15 @@ contract OtcEscrow is Ownable {
      * Return DEGEN to seller to revoke the deal
      */
     function revoke() external onlyOwner {
-        uint256 degenBalance = IERC20(degen).balanceOf(address(this));
-        IERC20(degen).safeTransfer(seller, degenBalance);
+        uint256 degenBalance = IERC20(DEGEN).balanceOf(address(this));
+        IERC20(DEGEN).safeTransfer(SELLER, degenBalance);
     }
 
     /**
      * Recovers WETH accidentally sent to the contract
      */
     function recoverWeth() external {
-        uint256 wethBalance = IERC20(weth).balanceOf(address(this));
-        IERC20(weth).safeTransfer(buyer, wethBalance);
+        uint256 wethBalance = IERC20(WETH).balanceOf(address(this));
+        IERC20(WETH).safeTransfer(BUYER, wethBalance);
     }
 }
