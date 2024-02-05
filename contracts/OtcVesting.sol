@@ -4,6 +4,15 @@ pragma solidity 0.8.20;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @title OtcVesting
+ * @dev Slightly modified version of: https://gist.github.com/rchen8/759d9c2fe9f244040678f852819079aa
+ * Changes include:
+ * - Upgrading the Solidity version
+ * - Renaming variables
+ * - Adding custom errors
+ * @custom:security-contact jacek@degen.tips
+ */
 contract OtcVesting is Ownable {
     /* ====== Errors ======== */
 
@@ -26,6 +35,11 @@ contract OtcVesting is Ownable {
      *  @dev The vesting cliff date has not been reached yet
      */
     error VestingCliffDateNotReached();
+
+    /**
+     *  @dev The vesting cliff date has not been reached yet
+     */
+    error DegenTokenCannotBeTransfered();
 
     /* ======== State Variables ======= */
 
