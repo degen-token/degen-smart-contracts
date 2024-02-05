@@ -61,15 +61,15 @@ contract OtcEscrow is Ownable {
     /**
      * Sets the state variables that encode the terms of the OTC sale
      *
-     * @param _buyer        Address that will purchase DEGEN
-     * @param _seller       Address that will receive WETH
-     * @param _vestingStart Timestamp of vesting start
-     * @param _vestingCliff Timestamp of vesting cliff
-     * @param _vestingEnd   Timestamp of vesting end
+     * @param _buyer         Address that will purchase DEGEN
+     * @param _seller        Address that will receive WETH
+     * @param _vestingStart  Timestamp of vesting start
+     * @param _vestingCliff  Timestamp of vesting cliff
+     * @param _vestingEnd    Timestamp of vesting end
      * @param _weth_amount   Amount of WETH swapped for the sale
      * @param _degen_amount  Amount of DEGEN swapped for the sale
-     * @param _wethAddress  Address of the WETH token
-     * @param _degenAddress Address of the Degen token
+     * @param _wethAddress   Address of the WETH token
+     * @param _degenAddress  Address of the Degen token
      */
     constructor(
         address _buyer,
