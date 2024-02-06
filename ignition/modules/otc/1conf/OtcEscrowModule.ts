@@ -60,3 +60,4 @@ const OtcEscrowModule = buildModule('OtcEscrowModule', (m) => {
 });
 
 export default OtcEscrowModule;
+export { OtcVestingModule };

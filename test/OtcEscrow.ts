@@ -4,9 +4,9 @@ import {
 } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
 import { ethers, ignition } from 'hardhat';
-import OtcEscrowModule from '../ignition/modules/OtcEscrowModule';
-import OtcTestToken1Module from '../ignition/modules/OtcTestToken1Module';
-import OtcTestToken2Module from '../ignition/modules/OtcTestToken2Module';
+import OtcEscrowModule from '../ignition/modules/otc/1conf/OtcEscrowModule';
+import OtcTestToken1Module from '../ignition/modules/otc/OtcTestToken1Module';
+import OtcTestToken2Module from '../ignition/modules/otc/OtcTestToken2Module';
 
 describe('OtcEscrow', function () {
   async function deployDegenFixture() {
@@ -56,21 +56,21 @@ describe('OtcEscrow', function () {
       const { otcTestToken1, otcTestToken2, buyAddr, sellAddr, otcEscrow } =
         await loadFixture(deployDegenFixture);
 
-      await otcTestToken1.transfer(buyAddr.address, 10000n * 10n ** 18n);
-      await otcTestToken2.transfer(otcEscrow, 100n * 10n ** 18n);
+      const wethAmount = await otcEscrow.WETH_AMOUNT();
+      const degenAmount = await otcEscrow.DEGEN_AMOUNT();
+      await otcTestToken1.transfer(buyAddr.address, wethAmount);
+      await otcTestToken2.transfer(otcEscrow, degenAmount);
 
       await expect(
-        otcTestToken1
-          .connect(buyAddr)
-          .approve(otcEscrow.target, 10000n * 10n ** 18n)
+        otcTestToken1.connect(buyAddr).approve(otcEscrow.target, wethAmount)
       )
         .to.emit(otcTestToken1, 'Approval')
-        .withArgs(buyAddr.address, otcEscrow.target, 10000n * 10n ** 18n);
+        .withArgs(buyAddr.address, otcEscrow.target, wethAmount);
 
       await otcEscrow.swap();
 
       expect(await otcTestToken1.balanceOf(sellAddr.address)).to.equal(
-        (1n * 10n ** 18n) / 1000n
+        wethAmount
       );
     });
 
@@ -78,16 +78,16 @@ describe('OtcEscrow', function () {
       const { otcTestToken1, otcTestToken2, buyAddr, otcEscrow } =
         await loadFixture(deployDegenFixture);
 
-      await otcTestToken1.transfer(buyAddr.address, 10000n * 10n ** 18n);
-      await otcTestToken2.transfer(otcEscrow, 100n * 10n ** 18n);
+      const wethAmount = await otcEscrow.WETH_AMOUNT();
+      const degenAmount = await otcEscrow.DEGEN_AMOUNT();
+      await otcTestToken1.transfer(buyAddr.address, wethAmount);
+      await otcTestToken2.transfer(otcEscrow, degenAmount);
 
       await expect(
-        otcTestToken1
-          .connect(buyAddr)
-          .approve(otcEscrow.target, 10000n * 10n ** 18n)
+        otcTestToken1.connect(buyAddr).approve(otcEscrow.target, wethAmount)
       )
         .to.emit(otcTestToken1, 'Approval')
-        .withArgs(buyAddr.address, otcEscrow.target, 10000n * 10n ** 18n);
+        .withArgs(buyAddr.address, otcEscrow.target, wethAmount);
 
       await otcEscrow.swap();
 
