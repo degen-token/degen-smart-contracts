@@ -3,7 +3,6 @@ pragma solidity 0.8.20;
 
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import {OtcVesting} from "./OtcVesting.sol";
 
 /**
  * @title OtcEscrow
