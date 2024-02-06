@@ -137,7 +137,7 @@ contract OtcEscrow is Ownable {
     /**
      * Recovers WETH accidentally sent to the contract
      */
-    function recoverWeth() external {
+    function recoverWeth() external onlyOwner {
         uint256 wethBalance = IERC20(WETH).balanceOf(address(this));
         IERC20(WETH).safeTransfer(BUYER, wethBalance);
     }
