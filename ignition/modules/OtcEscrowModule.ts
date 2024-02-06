@@ -1,6 +1,6 @@
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
-const BUYER = '0xeE6fb338E75C43cc9153FF86600700459e9871Da';
+const BUYER = '0xD049b3064990869C9F73bD7896271d83325D2067';
 const SELLER = '0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d';
 const VESTING_START = Math.round(new Date('2024-02-12').getTime() / 1000);
 const VESTING_CLIFF = Math.round(new Date('2024-08-12').getTime() / 1000);
