@@ -47,9 +47,6 @@ contract OtcEscrow is Ownable {
     address public immutable SELLER;
 
     address public immutable VESTING_CONTRACT;
-    uint256 public immutable VESTING_START;
-    uint256 public immutable VESTING_END;
-    uint256 public immutable VESTING_CLIFF;
 
     uint256 public immutable WETH_AMOUNT;
     uint256 public immutable DEGEN_AMOUNT;
@@ -64,9 +61,6 @@ contract OtcEscrow is Ownable {
      * @param _buyer             Address that will purchase DEGEN
      * @param _seller            Address that will receive WETH
      * @param _vestingContract   Address of the vesting contract
-     * @param _vestingStart      Timestamp of vesting start
-     * @param _vestingCliff      Timestamp of vesting cliff
-     * @param _vestingEnd        Timestamp of vesting end
      * @param _weth_amount       Amount of WETH swapped for the sale
      * @param _degen_amount      Amount of DEGEN swapped for the sale
      * @param _wethAddress       Address of the WETH token
@@ -76,9 +70,6 @@ contract OtcEscrow is Ownable {
         address _buyer,
         address _seller,
         address _vestingContract,
-        uint256 _vestingStart,
-        uint256 _vestingCliff,
-        uint256 _vestingEnd,
         uint256 _weth_amount,
         uint256 _degen_amount,
         address _wethAddress,
@@ -88,10 +79,6 @@ contract OtcEscrow is Ownable {
         SELLER = _seller;
 
         VESTING_CONTRACT = _vestingContract;
-        VESTING_START = _vestingStart;
-        VESTING_CLIFF = _vestingCliff;
-        VESTING_END = _vestingEnd;
-
         WETH_AMOUNT = _weth_amount;
         DEGEN_AMOUNT = _degen_amount;
 
