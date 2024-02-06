@@ -1,4 +1,6 @@
 {
   "TokenModule#DegenToken": "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
-  "DegenModule#DegenAirdrop1": "0x9F07F8A82cB1af1466252e505b7b7ddee103bC91"
+  "DegenModule#DegenAirdrop1": "0x9F07F8A82cB1af1466252e505b7b7ddee103bC91",
+  "OtcVestingModule#OtcVesting": "0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f",
+  "OtcEscrowModule#OtcEscrow": "0x4340A66FE6A39326B1A135F2D95167F357f0Fa21"
 }

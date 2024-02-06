@@ -4,8 +4,8 @@ import {
 } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect } from 'chai';
 import { ethers, ignition } from 'hardhat';
-import OtcVestingModule from '../ignition/modules/OtcVestingModule';
-import OtcTestToken2Module from '../ignition/modules/OtcTestToken2Module';
+import { OtcVestingModule } from '../ignition/modules/otc/1conf/OtcEscrowModule';
+import OtcTestToken2Module from '../ignition/modules/otc/OtcTestToken2Module';
 
 describe('OtcVesting', function () {
   async function deployDegenFixture() {
@@ -25,11 +25,11 @@ describe('OtcVesting', function () {
     const { otcVesting } = await ignition.deploy(OtcVestingModule, {
       parameters: {
         OtcVestingModule: {
+          degenAddress,
           buyer,
           vestingStart,
           vestingCliff,
           vestingEnd,
-          degenAddress,
         },
       },
     });
@@ -61,14 +61,15 @@ describe('OtcVesting', function () {
 
       await time.increaseTo(vestingBeginTimestamp + ONE_MONTH_IN_SECS);
 
+      const vestingAmount = await otcVesting.VESTING_AMOUNT();
       await otcTestToken2
         .connect(owner)
-        .transfer(otcVesting.target, 100n * 10n ** 18n);
+        .transfer(otcVesting.target, vestingAmount);
 
       await otcVesting.connect(buyAddr).claim();
 
       expect(await otcTestToken2.balanceOf(buyAddr.address)).to.equal(
-        8219184424150177574n
+        151914922533282470826991374n
       );
     });
   });
