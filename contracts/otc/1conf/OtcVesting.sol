@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.20;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
@@ -14,6 +14,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @custom:security-contact jacek@degen.tips
  */
 contract OtcVesting is Ownable {
+    using SafeERC20 for IERC20;
+
     /* ====== Errors ======== */
 
     /**
@@ -90,12 +92,12 @@ contract OtcVesting is Ownable {
                 (VESTING_END - VESTING_BEGIN);
             lastUpdate = block.timestamp;
         }
-        IERC20(DEGEN).transfer(RECIPIENT, amount);
+        IERC20(DEGEN).safeTransfer(RECIPIENT, amount);
     }
 
     function recoverToken(address token_) external onlyOwner {
         if (token_ == DEGEN) revert DegenTokenCannotBeTransfered();
         uint256 amount = IERC20(token_).balanceOf(address(this));
-        IERC20(token_).transfer(RECIPIENT, amount);
+        IERC20(token_).safeTransfer(RECIPIENT, amount);
     }
 }
