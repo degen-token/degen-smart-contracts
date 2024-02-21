@@ -22,20 +22,20 @@
     "wipe:base-goerli": "npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenAirdrop' && npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenToken'"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.1"
+    "@openzeppelin/contracts": "^5"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition-ethers": "^0.13.1",
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.3",
-    "chai": "^4.3.10",
-    "commander": "^11.1.0",
-    "dotenv": "^16.3.1",
-    "ethereumjs-util": "^7.1.5",
-    "ethers": "^6.9.1",
-    "hardhat": "^2.19.3",
-    "mocha": "^10.2.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "@nomicfoundation/hardhat-ignition-ethers": "^0",
+    "@nomicfoundation/hardhat-toolbox": "^4",
+    "@nomicfoundation/hardhat-verify": "^2",
+    "chai": "^4",
+    "commander": "^11",
+    "dotenv": "^16",
+    "ethereumjs-util": "^7",
+    "ethers": "^6",
+    "hardhat": "^2",
+    "mocha": "^10",
+    "ts-node": "^10",
+    "typescript": "^5"
   }
 }
