@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "deploy:base": "npx hardhat ignition deploy ignition/modules/otc/1conf/OtcEscrowModule.ts --network base_mainnet",
-    "deploy:base-goerli": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network base_goerli",
+    "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network base_sepolia",
     "generate-merkle-root:airdrop1": "ts-node scripts/generate-merkle-root.ts --input airdrop/airdrop1.json",
     "generate-merkle-root:lp1": "ts-node scripts/generate-merkle-root.ts --input airdrop/liquidity_mining_season1.json",
     "generate-merkle-root:example": "ts-node scripts/generate-merkle-root.ts --input airdrop/example.json",
