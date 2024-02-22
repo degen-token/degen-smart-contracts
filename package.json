@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "compile": "npx hardhat compile",
-    "deploy:base": "npx hardhat ignition deploy ignition/modules/otc/1conf/OtcEscrowModule.ts --network base_mainnet",
-    "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/otc/1conf/OtcEscrowModule.ts --network base_sepolia",
+    "deploy:base": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network base_mainnet",
+    "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network base_sepolia",
     "generate-merkle-root:airdrop1": "ts-node scripts/generate-merkle-root.ts --input airdrop/airdrop1.json",
+    "generate-merkle-root:lp1": "ts-node scripts/generate-merkle-root.ts --input airdrop/liquidity_mining_season1.json",
     "generate-merkle-root:example": "ts-node scripts/generate-merkle-root.ts --input airdrop/example.json",
     "node": "npx hardhat node",
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test",
-    "verify:token:base": "npx hardhat verify --network base_mainnet 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 1830297600 ",
+    "verify:token:base": "npx hardhat verify --network base_mainnet 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 1830297600",
     "verify:airdrop:base": "npx hardhat verify --network base_mainnet 0x9F07F8A82cB1af1466252e505b7b7ddee103bC91 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b 1714521600",
-    "verify:token:base-goerli": "npx hardhat verify --network base_goerli 0x48A6c824140A68E1892E6bc7A6A3066758116Eb3 1830297600 ",
-    "verify:airdrop:base-goerli": "npx hardhat verify --network base_goerli 0xCe377F9346ec511d5b7E699EaC298472618E8849 0x48A6c824140A68E1892E6bc7A6A3066758116Eb3 0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b 1714521600",
+    "verify:token:base-sepolia": "npx hardhat verify --network base_sepolia 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 1830297600",
+    "verify:airdrop:base-sepolia": "npx hardhat verify --network base_sepolia 0x2ED740E95F7a220FE3B0A6d9e9151f6AA111Dcad 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b 1714521600",
     "verify:otc-vesting:base": "npx hardhat verify --network base_mainnet 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
     "verify:otc-escrow:base": "npx hardhat verify --network base_mainnet 0x4340A66FE6A39326B1A135F2D95167F357f0Fa21 0xD049b3064990869C9F73bD7896271d83325D2067 0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 435000000000000000000 1848296798000000000000000000 0x4200000000000000000000000000000000000006 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
     "verify:otc-vesting:base-sepolia": "npx hardhat verify --network base_sepolia 0xD338df63D7005783da8e7F6A6D53556240A6A336 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
@@ -22,20 +23,20 @@
     "wipe:base-goerli": "npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenAirdrop' && npx hardhat ignition wipe 'chain-84531' 'DegenModule#DegenToken'"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.1"
+    "@openzeppelin/contracts": "^5"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition-ethers": "^0.13.1",
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.3",
-    "chai": "^4.3.10",
-    "commander": "^11.1.0",
-    "dotenv": "^16.3.1",
-    "ethereumjs-util": "^7.1.5",
-    "ethers": "^6.9.1",
-    "hardhat": "^2.19.3",
-    "mocha": "^10.2.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "@nomicfoundation/hardhat-ignition-ethers": "^0",
+    "@nomicfoundation/hardhat-toolbox": "^4",
+    "@nomicfoundation/hardhat-verify": "^2",
+    "chai": "^4",
+    "commander": "^11",
+    "dotenv": "^16",
+    "ethereumjs-util": "^7",
+    "ethers": "^6",
+    "hardhat": "^2",
+    "mocha": "^10",
+    "ts-node": "^10",
+    "typescript": "^5"
   }
 }

@@ -1,4 +1,7 @@
 {
   "OtcVestingModule#OtcVesting": "0xD338df63D7005783da8e7F6A6D53556240A6A336",
-  "OtcEscrowModule#OtcEscrow": "0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896"
+  "OtcEscrowModule#OtcEscrow": "0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896",
+  "TokenModule#DegenToken": "0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c",
+  "DegenModule#DegenAirdrop1": "0x2ED740E95F7a220FE3B0A6d9e9151f6AA111Dcad",
+  "LiquidityMiningAirdrop1#DegenAirdrop1": "0x5f0Ce3D7B18D1F3B196290894540B5E1Fa7e16ca"
 }
