@@ -30,7 +30,7 @@
     "@nomicfoundation/hardhat-toolbox": "^4",
     "@nomicfoundation/hardhat-verify": "^2",
     "chai": "^4",
-    "commander": "^11",
+    "commander": "^12.0.0",
     "dotenv": "^16",
     "ethereumjs-util": "^7",
     "ethers": "^6",
