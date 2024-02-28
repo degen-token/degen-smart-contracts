@@ -3,5 +3,6 @@
   "DegenModule#DegenAirdrop1": "0x9F07F8A82cB1af1466252e505b7b7ddee103bC91",
   "OtcVestingModule#OtcVesting": "0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f",
   "OtcEscrowModule#OtcEscrow": "0x4340A66FE6A39326B1A135F2D95167F357f0Fa21",
-  "LiquidityMiningAirdrop1#DegenAirdrop1": "0x7134ddcd6Bc3d3f29643Ec8882cd4d7d0b38379D"
+  "LiquidityMiningAirdrop1#DegenAirdrop1": "0x7134ddcd6Bc3d3f29643Ec8882cd4d7d0b38379D",
+  "Airdrop2Season1#DegenAirdrop1": "0x88d42b6DBc10D2494A0c6c189CeFC7573a6dCE62"
 }
