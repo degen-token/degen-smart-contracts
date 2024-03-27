@@ -14,10 +14,6 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY as string],
     },
     // for testnet
-    base_goerli: {
-      url: process.env.ALCHEMY_BASE_GOERLI_RPC_URL as string,
-      accounts: [process.env.PRIVATE_KEY as string],
-    },
     base_sepolia: {
       url: process.env.ALCHEMY_BASE_SEPOLIA_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
