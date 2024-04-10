@@ -12,7 +12,7 @@ const AIRDROP_CLAIM_DEADLINE = Math.round(
 const AIRDROP_MERKLE_ROOT =
   '0x66b93d149252a6c6774bb728e1b4e79ba5e887c9b9cf124d3766e0e85c76c79f';
 
-const LiquidityMiningAirdrop1 = buildModule('LiquidityMiningAirdrop1', (m) => {
+const LiquidityMiningAirdrop2 = buildModule('LiquidityMiningAirdrop2', (m) => {
   /**
    * Parameters
    */
@@ -41,4 +41,4 @@ const LiquidityMiningAirdrop1 = buildModule('LiquidityMiningAirdrop1', (m) => {
   return { degenAirdrop };
 });
 
-export default LiquidityMiningAirdrop1;
+export default LiquidityMiningAirdrop2;
