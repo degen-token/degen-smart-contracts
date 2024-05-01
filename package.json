@@ -25,17 +25,17 @@
     "@openzeppelin/contracts": "^5.0.2"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition-ethers": "^0",
-    "@nomicfoundation/hardhat-toolbox": "^5",
-    "@nomicfoundation/hardhat-verify": "^2",
-    "chai": "^4",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.1",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.6",
+    "chai": "^4.4.1",
     "commander": "^12.0.0",
-    "dotenv": "^16",
-    "ethereumjs-util": "^7",
-    "ethers": "^6",
-    "hardhat": "^2",
-    "mocha": "^10",
-    "ts-node": "^10",
-    "typescript": "^5"
+    "dotenv": "^16.4.5",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^6.12.1",
+    "hardhat": "^2.22.3",
+    "mocha": "^10.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
