@@ -6,13 +6,13 @@ import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 const DEGEN_TOKEN = '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed';
 
 const AIRDROP_CLAIM_DEADLINE = Math.round(
-  new Date('2024-04-30').getTime() / 1000
+  new Date('2024-05-29').getTime() / 1000
 );
 
 const AIRDROP_MERKLE_ROOT =
-  '0x12f4a3a18409b4bdd22f1f927a0dabbfe75afc67e33a263330272a1e9d0ba221';
+  '0x6c8de5cbb177e6608186ece20697d8dc68f997f084d3ad8cef09c34bb923487e';
 
-const Airdrop2Season2 = buildModule('Airdrop2Season2', (m) => {
+const Airdrop2Season3 = buildModule('Airdrop2Season3', (m) => {
   /**
    * Parameters
    */
@@ -41,4 +41,4 @@ const Airdrop2Season2 = buildModule('Airdrop2Season2', (m) => {
   return { degenAirdrop };
 });
 
-export default Airdrop2Season2;
+export default Airdrop2Season3;
