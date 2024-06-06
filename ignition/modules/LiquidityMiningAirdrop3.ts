@@ -3,7 +3,7 @@ import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 /**
  * Airdrop Constants
  */
-const DEGEN_TOKEN = '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed';
+const DEGEN_TOKEN = '0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387';
 
 const AIRDROP_CLAIM_DEADLINE = Math.round(
   new Date('2024-08-09').getTime() / 1000
