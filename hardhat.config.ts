@@ -18,8 +18,9 @@ const config: HardhatUserConfig = {
       url: process.env.ALCHEMY_BASE_SEPOLIA_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
     },
-    degen_sepolia: {
-      url: process.env.CONDUIT_DEGEN_SEPOLIA_RPC_URL as string,
+    // for degen mainnet
+    degen_mainnet: {
+      url: process.env.DEGEN_RPC_URL as string,
       accounts: [process.env.PRIVATE_KEY as string],
     },
   },
