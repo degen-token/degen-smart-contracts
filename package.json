@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "compile": "npx hardhat compile",
     "deploy:degen": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop3.ts --network degen_mainnet",
     "deploy:base": "npx hardhat ignition deploy ignition/modules/Airdrop2Season4.ts --network base_mainnet",
@@ -38,5 +39,6 @@
     "mocha": "^10.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
-  }
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }
