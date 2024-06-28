@@ -20,7 +20,7 @@ const DegenLock = buildModule('DegenLock', (m: any) => {
   /**
    * Contracts
    */
-  const degenAirdrop = m.contract('DegenLock', [
+  const degenLock = m.contract('DegenLock', [
     degenToken,
     depositDeadline,
     lockDuration,
@@ -32,7 +32,7 @@ const DegenLock = buildModule('DegenLock', (m: any) => {
    * Transactions
    */
 
-  return { degenAirdrop };
+  return { degenLock };
 });
 
 export default DegenLock;
