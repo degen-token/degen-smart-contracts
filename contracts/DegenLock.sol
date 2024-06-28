@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract TokenLock is OwnableUpgradeable, IERC20 {
+contract DegenLock is OwnableUpgradeable, IERC20 {
     ERC20 public token;
     uint256 public depositDeadline;
     uint256 public lockDuration;
