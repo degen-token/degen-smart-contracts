@@ -34,7 +34,7 @@ contract TokenLock is OwnableUpgradeable, IERC20 {
         string memory _name,
         string memory _symbol
     ) public initializer {
-        __Ownable_init();
+        __Ownable_init(_owner);
         transferOwnership(_owner);
         token = ERC20(_token);
         depositDeadline = _depositDeadline;
