@@ -30,7 +30,6 @@ const DegenLock = buildModule('DegenLock', (m: any) => {
   /**
    * Transactions
    */
-
   return { degenLock };
 });
 
