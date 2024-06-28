@@ -44,8 +44,10 @@ contract TokenLock is OwnableUpgradeable, IERC20 {
         totalSupply = 0;
     }
 
-    /// @dev Deposit tokens to be locked until the end of the locking period
-    /// @param amount The amount of tokens to deposit
+    /**
+     * @dev Deposit tokens to be locked until the end of the locking period
+     * @param amount The amount of tokens to deposit
+     */
     function deposit(uint256 amount) public {
         if (block.timestamp > depositDeadline) {
             revert DepositPeriodOver();
@@ -61,8 +63,10 @@ contract TokenLock is OwnableUpgradeable, IERC20 {
         emit Transfer(msg.sender, address(this), amount);
     }
 
-    /// @dev Withdraw tokens after the end of the locking period or during the deposit period
-    /// @param amount The amount of tokens to withdraw
+    /**
+     * @dev Withdraw tokens after the end of the locking period or during the deposit period
+     * @param amount The amount of tokens to withdraw
+     */
     function withdraw(uint256 amount) public {
         if (
             block.timestamp > depositDeadline &&
@@ -84,17 +88,23 @@ contract TokenLock is OwnableUpgradeable, IERC20 {
         emit Transfer(address(this), msg.sender, amount);
     }
 
-    /// @dev Returns the number of decimals of the locked token
+    /**
+     * @dev Returns the number of decimals of the locked token
+     */
     function decimals() public view returns (uint8) {
         return token.decimals();
     }
 
-    /// @dev Lock claim tokens are non-transferrable: ERC-20 transfer is not supported
+    /**
+     * @dev Lock claim tokens are non-transferrable: ERC-20 transfer is not supported
+     */
     function transfer(address, uint256) external pure override returns (bool) {
         revert NotSupported();
     }
 
-    /// @dev Lock claim tokens are non-transferrable: ERC-20 allowance is not supported
+    /**
+     * @dev Lock claim tokens are non-transferrable: ERC-20 allowance is not supported
+     */
     function allowance(
         address,
         address
@@ -102,12 +112,17 @@ contract TokenLock is OwnableUpgradeable, IERC20 {
         revert NotSupported();
     }
 
-    /// @dev Lock claim tokens are non-transferrable: ERC-20 approve is not supported
+    /**
+     *
+     * @dev Lock claim tokens are non-transferrable: ERC-20 approve is not supported
+     */
     function approve(address, uint256) external pure override returns (bool) {
         revert NotSupported();
     }
 
-    /// @dev Lock claim tokens are non-transferrable: ERC-20 transferFrom is not supported
+    /**
+     *  @dev Lock claim tokens are non-transferrable: ERC-20 transferFrom is not supported
+     */
     function transferFrom(
         address,
         address,
