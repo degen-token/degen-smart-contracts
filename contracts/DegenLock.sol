@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.6;
 
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract DegenLock is OwnableUpgradeable, IERC20 {
+contract DegenLock is Ownable, IERC20 {
     ERC20 public token;
     uint256 public depositDeadline;
     uint256 public lockDuration;
@@ -26,16 +26,13 @@ contract DegenLock is OwnableUpgradeable, IERC20 {
     /// ERC-20 function is not supported
     error NotSupported();
 
-    function initialize(
-        address _owner,
+    constructor(
         address _token,
         uint256 _depositDeadline,
         uint256 _lockDuration,
         string memory _name,
         string memory _symbol
-    ) public initializer {
-        __Ownable_init(_owner);
-        transferOwnership(_owner);
+    ) Ownable(msg.sender) {
         token = ERC20(_token);
         depositDeadline = _depositDeadline;
         lockDuration = _lockDuration;
