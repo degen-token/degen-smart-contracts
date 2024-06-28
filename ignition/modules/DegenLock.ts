@@ -1,9 +1,8 @@
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
 /**
- * Airdrop Constants
+ * Lock Constants
  */
-
 const DEGEN_TOKEN = '0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c';
 const DEPOSIT_DEADLINE = Math.round(new Date('2024-07-01').getTime() / 1000);
 const LOCK_DURATION = 60 * 60; // 1 hour
