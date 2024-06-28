@@ -29,15 +29,13 @@ contract DegenLock is Ownable, IERC20 {
     constructor(
         address _token,
         uint256 _depositDeadline,
-        uint256 _lockDuration,
-        string memory _name,
-        string memory _symbol
+        uint256 _lockDuration
     ) Ownable(msg.sender) {
         token = ERC20(_token);
         depositDeadline = _depositDeadline;
         lockDuration = _lockDuration;
-        name = _name;
-        symbol = _symbol;
+        name = "Locked Degen";
+        symbol = "LDEGEN";
         totalSupply = 0;
     }
 
