@@ -45,6 +45,11 @@ contract DegenLockToken is ERC20, Ownable {
     error NotSupported();
 
     /**
+     *  @dev The lock duration is longer than the previous one
+     */
+    error LockDurationIsLonger();
+
+    /**
      *  @dev The lock duration has been updated
      */
     event LockDurationUpdated(uint256 indexed duration);
@@ -100,6 +105,10 @@ contract DegenLockToken is ERC20, Ownable {
      * @param newDuration The new lock duration in seconds
      */
     function updateLockDuration(uint256 newDuration) public onlyOwner {
+        if (newDuration >= lockDuration) {
+            revert LockDurationIsLonger();
+        }
+
         lockDuration = newDuration;
         emit LockDurationUpdated(lockDuration);
     }
