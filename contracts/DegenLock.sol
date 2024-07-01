@@ -30,7 +30,7 @@ contract DegenLockToken is ERC20, Ownable {
     address public immutable TOKEN;
 
     /**
-     * @dev Lock duration in seconds, period starts after the deposit deadline
+     * @dev Lock duration in seconds, period starts after the deposit timestamp
      */
     uint256 public lockDuration;
 
