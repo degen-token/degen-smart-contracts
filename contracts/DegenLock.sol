@@ -13,17 +13,17 @@ contract DegenLock is Ownable, IERC20 {
     /**
      * @dev The ERC20 token to be locked
      */
-    ERC20 public token;
+    ERC20 public immutable token;
 
     /**
      * @dev Unix timestamp (seconds) of the deposit deadline
      */
-    uint256 public depositDeadline;
+    uint256 public immutable depositDeadline;
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit deadline
      */
-    uint256 public lockDuration;
+    uint256 public immutable lockDuration;
 
     /**
      * @dev Name of the token representing the claim on the locked token
