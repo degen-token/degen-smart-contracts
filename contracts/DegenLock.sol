@@ -12,6 +12,8 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 contract DegenLockToken is ERC20, Ownable {
     using SafeERC20 for IERC20;
 
+    mapping(address account => uint256) private _depositTimestamps;
+
     /**
      * @dev Name of the token representing the claim on the locked token
      */
@@ -28,19 +30,9 @@ contract DegenLockToken is ERC20, Ownable {
     address public immutable TOKEN;
 
     /**
-     * @dev Unix timestamp (seconds) of the deposit deadline
-     */
-    uint256 public immutable DEPOSIT_DEADLINE;
-
-    /**
      * @dev Lock duration in seconds, period starts after the deposit deadline
      */
-    uint256 public immutable LOCK_DURATION;
-
-    /**
-     * @dev Deposit is not possible anymore because the deposit period is over
-     */
-    error DepositPeriodOver();
+    uint256 public lockDuration;
 
     /**
      * @dev Withdraw is not possible because the lock period is not over yet
@@ -55,17 +47,13 @@ contract DegenLockToken is ERC20, Ownable {
     /**
      * @dev Construct a new Degen token
      * @param _token The timestamp after which minting may occur
-     * @param _depositDeadline The timestamp after which minting may occur
-     * @param _lockDuration The timestamp after which minting may occur
      */
     constructor(
         address _token,
-        uint256 _depositDeadline,
         uint256 _lockDuration
     ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         TOKEN = _token;
-        DEPOSIT_DEADLINE = _depositDeadline;
-        LOCK_DURATION = _lockDuration;
+        lockDuration = 300;
     }
 
     /**
@@ -73,12 +61,17 @@ contract DegenLockToken is ERC20, Ownable {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) public {
-        if (block.timestamp > DEPOSIT_DEADLINE) {
-            revert DepositPeriodOver();
-        }
-
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
+        _depositTimestamps[msg.sender] = block.timestamp;
+    }
+
+    /**
+     * @dev Update the lock duration
+     * @param newDuration The new lock duration in seconds
+     */
+    function updateLockDuration(uint256 newDuration) public onlyOwner {
+        lockDuration = newDuration;
     }
 
     /**
@@ -86,15 +79,21 @@ contract DegenLockToken is ERC20, Ownable {
      * @param amount The amount of tokens to withdraw
      */
     function withdraw(uint256 amount) public {
-        if (
-            block.timestamp > DEPOSIT_DEADLINE &&
-            block.timestamp < DEPOSIT_DEADLINE + LOCK_DURATION
-        ) {
+        if (block.timestamp < _depositTimestamps[msg.sender] + LOCK_DURATION) {
             revert LockPeriodOngoing();
         }
 
         _burn(msg.sender, amount);
         IERC20(TOKEN).safeTransfer(msg.sender, amount);
+    }
+
+    /**
+     * @dev Last deposit timestamp for the account
+     */
+    function depositTimestamp(
+        address account
+    ) public view virtual returns (uint256) {
+        return _depositTimestamps[account];
     }
 
     /**
