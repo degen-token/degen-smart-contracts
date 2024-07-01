@@ -52,7 +52,7 @@ contract DegenLockToken is ERC20, Ownable {
     /**
      *  @dev The deposit timestamp has been set
      */
-    event DepositTimestampSet(
+    event DepositTimestampUpdated(
         address indexed account,
         uint256 indexed depositTimestamp
     );
@@ -79,7 +79,7 @@ contract DegenLockToken is ERC20, Ownable {
         _mint(msg.sender, amount);
 
         _depositTimestamps[msg.sender] = block.timestamp;
-        emit DepositTimestampSet(msg.sender, block.timestamp);
+        emit DepositTimestampUpdated(msg.sender, block.timestamp);
     }
 
     /**
