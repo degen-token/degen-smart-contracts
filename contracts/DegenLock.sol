@@ -57,7 +57,9 @@ contract DegenLockToken is ERC20, Ownable {
         address _token
     ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         TOKEN = _token;
+
         lockDuration = 300;
+        emit LockDurationUpdated(lockDuration);
     }
 
     /**
@@ -89,7 +91,7 @@ contract DegenLockToken is ERC20, Ownable {
      */
     function updateLockDuration(uint256 newDuration) public onlyOwner {
         lockDuration = newDuration;
-        emit LockDurationUpdated(newDuration);
+        emit LockDurationUpdated(lockDuration);
     }
 
     /**
