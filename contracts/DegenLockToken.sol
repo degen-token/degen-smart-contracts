@@ -66,7 +66,7 @@ contract DegenLockToken is ERC20, Ownable {
     ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         TOKEN = _token;
 
-        lockDuration = 300;
+        lockDuration = 31536000; // 1 year
         emit LockDurationUpdated(lockDuration);
     }
 
