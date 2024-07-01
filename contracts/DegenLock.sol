@@ -19,15 +19,29 @@ contract DegenLock is Ownable, IERC20 {
     uint256 public override totalSupply;
     mapping(address => uint256) public override balanceOf;
 
-    /// Withdraw amount exceeds sender's balance of the locked token
+    /**
+     * @dev Withdraw amount exceeds sender's balance of the locked token
+     */
     error ExceedsBalance();
-    /// Deposit is not possible anymore because the deposit period is over
+
+    /**
+     * @dev Deposit is not possible anymore because the deposit period is over
+     */
     error DepositPeriodOver();
-    /// Withdraw is not possible because the lock period is not over yet
+
+    /**
+     * @dev Withdraw is not possible because the lock period is not over yet
+     */
     error LockPeriodOngoing();
-    /// Could not transfer the designated ERC20 token
+
+    /**
+     * @dev Could not transfer the designated ERC20 token
+     */
     error TransferFailed();
-    /// ERC-20 function is not supported
+
+    /**
+     * @dev ERC-20 function is not supported
+     */
     error NotSupported();
 
     constructor(
