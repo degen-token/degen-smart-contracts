@@ -77,8 +77,8 @@ contract DegenToken is ERC20, Ownable {
             revert DepositPeriodOver();
         }
 
-        _mint(msg.sender, amount);
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
+        _mint(msg.sender, amount);
     }
 
     /**
