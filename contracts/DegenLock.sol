@@ -5,6 +5,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+/**
+ * @notice Lock Degen for a set amount of time after the deposit period ends.
+ * @custom:security-contact jacek@degen.tips
+ */
 contract DegenLock is Ownable, IERC20 {
     ERC20 public token;
     uint256 public depositDeadline;
