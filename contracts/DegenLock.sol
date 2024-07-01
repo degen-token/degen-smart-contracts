@@ -13,12 +13,12 @@ contract DegenLock is Ownable, IERC20 {
     /**
      * @dev Name of the token representing the claim on the locked token
      */
-    string public constant name = "Locked Degen";
+    string public constant NAME = "Locked Degen";
 
     /**
      * @dev Symbol of the token representing the claim on the locked token
      */
-    string public constant symbol = "LDEGEN";
+    string public constant SYMBOL = "LDEGEN";
 
     /**
      * @dev The ERC20 token to be locked
