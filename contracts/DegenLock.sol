@@ -79,7 +79,7 @@ contract DegenLockToken is ERC20, Ownable {
      * @param amount The amount of tokens to withdraw
      */
     function withdraw(uint256 amount) public {
-        if (block.timestamp < _depositTimestamps[msg.sender] + LOCK_DURATION) {
+        if (block.timestamp < _depositTimestamps[msg.sender] + lockDuration) {
             revert LockPeriodOngoing();
         }
 
