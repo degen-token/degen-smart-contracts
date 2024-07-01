@@ -11,6 +11,16 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
  */
 contract DegenLock is Ownable, IERC20 {
     /**
+     * @dev Name of the token representing the claim on the locked token
+     */
+    string public constant name = "Locked Degen";
+
+    /**
+     * @dev Symbol of the token representing the claim on the locked token
+     */
+    string public constant symbol = "LDEGEN";
+
+    /**
      * @dev The ERC20 token to be locked
      */
     ERC20 public immutable token;
@@ -24,16 +34,6 @@ contract DegenLock is Ownable, IERC20 {
      * @dev Lock duration in seconds, period starts after the deposit deadline
      */
     uint256 public immutable lockDuration;
-
-    /**
-     * @dev Name of the token representing the claim on the locked token
-     */
-    string public constant name = "Locked Degen";
-
-    /**
-     * @dev Symbol of the token representing the claim on the locked token
-     */
-    string public constant symbol = "LDEGEN";
 
     /**
      * @dev Total number of tokens in circulation
