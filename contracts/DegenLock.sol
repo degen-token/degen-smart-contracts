@@ -45,9 +45,17 @@ contract DegenLockToken is ERC20, Ownable {
     error NotSupported();
 
     /**
-     *  @dev This event is triggered whenever a call to #claim succeeds
+     *  @dev The lock duration has been updated
      */
     event LockDurationUpdated(uint256 indexed duration);
+
+    /**
+     *  @dev The deposit timestamp has been set
+     */
+    event DepositTimestampSet(
+        address indexed account,
+        uint256 indexed depositTimestamp
+    );
 
     /**
      * @dev Construct a new Degen token
@@ -69,7 +77,9 @@ contract DegenLockToken is ERC20, Ownable {
     function deposit(uint256 amount) public {
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
+
         _depositTimestamps[msg.sender] = block.timestamp;
+        emit DepositTimestampSet(msg.sender, block.timestamp);
     }
 
     /**
