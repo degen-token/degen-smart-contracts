@@ -49,8 +49,7 @@ contract DegenLockToken is ERC20, Ownable {
      * @param _token The timestamp after which minting may occur
      */
     constructor(
-        address _token,
-        uint256 _lockDuration
+        address _token
     ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         TOKEN = _token;
         lockDuration = 300;
