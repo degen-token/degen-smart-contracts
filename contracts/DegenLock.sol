@@ -45,6 +45,11 @@ contract DegenLockToken is ERC20, Ownable {
     error NotSupported();
 
     /**
+     *  @dev This event is triggered whenever a call to #claim succeeds
+     */
+    event LockDurationUpdated(uint256 indexed duration);
+
+    /**
      * @dev Construct a new Degen token
      * @param _token The timestamp after which minting may occur
      */
@@ -84,6 +89,7 @@ contract DegenLockToken is ERC20, Ownable {
      */
     function updateLockDuration(uint256 newDuration) public onlyOwner {
         lockDuration = newDuration;
+        emit LockDurationUpdated(newDuration);
     }
 
     /**
