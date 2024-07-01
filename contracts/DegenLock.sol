@@ -1,54 +1,41 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity 0.8.20;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @notice Lock Degen for a set amount of time after the deposit period ends.
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenLock is Ownable, IERC20 {
+contract DegenToken is ERC20, Ownable {
+    using SafeERC20 for IERC20;
+
     /**
      * @dev Name of the token representing the claim on the locked token
      */
-    string public constant name = "Locked Degen";
+    string public constant TOKEN_NAME = "Locked Degen";
 
     /**
      * @dev Symbol of the token representing the claim on the locked token
      */
-    string public constant symbol = "LDEGEN";
+    string public constant TOKEN_SYMBOL = "LDEGEN";
 
     /**
      * @dev The ERC20 token to be locked
      */
-    ERC20 public immutable token;
+    address public immutable TOKEN;
 
     /**
      * @dev Unix timestamp (seconds) of the deposit deadline
      */
-    uint256 public immutable depositDeadline;
+    uint256 public immutable DEPOSIT_DEADLINE;
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit deadline
      */
-    uint256 public immutable lockDuration;
-
-    /**
-     * @dev Total number of tokens in circulation
-     */
-    uint256 public override totalSupply;
-
-    /**
-     * @dev Mapping from account to balance
-     */
-    mapping(address => uint256) public override balanceOf;
-
-    /**
-     * @dev Withdraw amount exceeds sender's balance of the locked token
-     */
-    error ExceedsBalance();
+    uint256 public immutable LOCK_DURATION;
 
     /**
      * @dev Deposit is not possible anymore because the deposit period is over
@@ -61,24 +48,24 @@ contract DegenLock is Ownable, IERC20 {
     error LockPeriodOngoing();
 
     /**
-     * @dev Could not transfer the designated ERC20 token
-     */
-    error TransferFailed();
-
-    /**
      * @dev ERC-20 function is not supported
      */
     error NotSupported();
 
+    /**
+     * @dev Construct a new Degen token
+     * @param _token The timestamp after which minting may occur
+     * @param _depositDeadline The timestamp after which minting may occur
+     * @param _lockDuration The timestamp after which minting may occur
+     */
     constructor(
         address _token,
         uint256 _depositDeadline,
         uint256 _lockDuration
-    ) Ownable(msg.sender) {
-        token = ERC20(_token);
-        depositDeadline = _depositDeadline;
-        lockDuration = _lockDuration;
-        totalSupply = 0;
+    ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
+        TOKEN = _token;
+        DEPOSIT_DEADLINE = _depositDeadline;
+        LOCK_DURATION = _lockDuration;
     }
 
     /**
@@ -86,18 +73,12 @@ contract DegenLock is Ownable, IERC20 {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) public {
-        if (block.timestamp > depositDeadline) {
+        if (block.timestamp > DEPOSIT_DEADLINE) {
             revert DepositPeriodOver();
         }
 
-        balanceOf[msg.sender] += amount;
-        totalSupply += amount;
-
-        if (!token.transferFrom(msg.sender, address(this), amount)) {
-            revert TransferFailed();
-        }
-
-        emit Transfer(msg.sender, address(this), amount);
+        _mint(msg.sender, amount);
+        IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
     }
 
     /**
@@ -106,36 +87,20 @@ contract DegenLock is Ownable, IERC20 {
      */
     function withdraw(uint256 amount) public {
         if (
-            block.timestamp > depositDeadline &&
-            block.timestamp < depositDeadline + lockDuration
+            block.timestamp > DEPOSIT_DEADLINE &&
+            block.timestamp < DEPOSIT_DEADLINE + LOCK_DURATION
         ) {
             revert LockPeriodOngoing();
         }
-        if (balanceOf[msg.sender] < amount) {
-            revert ExceedsBalance();
-        }
 
-        balanceOf[msg.sender] -= amount;
-        totalSupply -= amount;
-
-        if (!token.transfer(msg.sender, amount)) {
-            revert TransferFailed();
-        }
-
-        emit Transfer(address(this), msg.sender, amount);
-    }
-
-    /**
-     * @dev Returns the number of decimals of the locked token
-     */
-    function decimals() public view returns (uint8) {
-        return token.decimals();
+        _burn(msg.sender, amount);
+        IERC20(TOKEN).safeTransfer(msg.sender, amount);
     }
 
     /**
      * @dev Lock claim tokens are non-transferrable: ERC-20 transfer is not supported
      */
-    function transfer(address, uint256) external pure override returns (bool) {
+    function transfer(address, uint256) public pure override returns (bool) {
         revert NotSupported();
     }
 
@@ -145,7 +110,7 @@ contract DegenLock is Ownable, IERC20 {
     function allowance(
         address,
         address
-    ) external pure override returns (uint256) {
+    ) public pure override returns (uint256) {
         revert NotSupported();
     }
 
@@ -153,7 +118,7 @@ contract DegenLock is Ownable, IERC20 {
      *
      * @dev Lock claim tokens are non-transferrable: ERC-20 approve is not supported
      */
-    function approve(address, uint256) external pure override returns (bool) {
+    function approve(address, uint256) public pure override returns (bool) {
         revert NotSupported();
     }
 
@@ -164,7 +129,7 @@ contract DegenLock is Ownable, IERC20 {
         address,
         address,
         uint256
-    ) external pure override returns (bool) {
+    ) public pure override returns (bool) {
         revert NotSupported();
     }
 }
