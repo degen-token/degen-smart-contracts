@@ -89,9 +89,7 @@ contract DegenLockToken is ERC20, Ownable {
     /**
      * @dev Last deposit timestamp for the account
      */
-    function depositTimestamp(
-        address account
-    ) public view virtual returns (uint256) {
+    function depositTimestamp(address account) public view returns (uint256) {
         return _depositTimestamps[account];
     }
 
