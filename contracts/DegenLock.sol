@@ -2,14 +2,14 @@
 pragma solidity 0.8.20;
 
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @notice Lock Degen for a set amount of time after the deposit period ends.
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenToken is ERC20, Ownable {
+contract DegenLockToken is ERC20, Ownable {
     using SafeERC20 for IERC20;
 
     /**
