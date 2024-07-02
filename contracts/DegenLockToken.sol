@@ -97,6 +97,10 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param amount The amount of tokens to withdraw
      */
     function withdraw(uint256 amount) external nonReentrant {
+        if (amount == 0) {
+            revert ZeroAmount();
+        }
+
         if (block.timestamp < _depositTimestamps[msg.sender] + lockDuration) {
             revert LockPeriodOngoing();
         }
