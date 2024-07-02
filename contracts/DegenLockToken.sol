@@ -51,6 +51,11 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     error LockDurationIsLonger();
 
     /**
+     *  @dev Amount of tokens to be locked is zero
+     */
+    error ZeroAmount();
+
+    /**
      *  @dev The lock duration has been updated
      */
     event LockDurationUpdated(uint256 indexed duration);
@@ -76,6 +81,10 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
+        if (amount == 0) {
+            revert ZeroAmount();
+        }
+
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
 
