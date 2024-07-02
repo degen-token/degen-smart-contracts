@@ -28,7 +28,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev The ERC20 token to be locked
      */
-    address public immutable TOKEN;
+    address public immutable TOKEN = 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c;
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
@@ -65,13 +65,8 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
     /**
      * @dev Construct a new Degen token
-     * @param _token The timestamp after which minting may occur
      */
-    constructor(
-        address _token
-    ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
-        TOKEN = _token;
-
+    constructor() ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         lockDuration = 90 days;
         emit LockDurationUpdated(lockDuration);
     }
