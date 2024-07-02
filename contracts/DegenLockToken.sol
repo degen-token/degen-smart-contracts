@@ -36,6 +36,11 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     uint256 public lockDuration;
 
     /**
+     * @dev Minimum amount of tokens that have to be deposited
+     */
+    uint256 public minDepositAmount;
+
+    /**
      * @dev Withdraw is not possible because the lock period is not over yet
      */
     error LockPeriodOngoing();
@@ -56,9 +61,20 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     error ZeroAmount();
 
     /**
+    /**
+     * @dev Minimum deposit not met
+     */
+    error MinimumDepositNotMet();
+
+    /**
      *  @dev The lock duration has been updated
      */
     event LockDurationUpdated(uint256 indexed duration);
+
+    /**
+     *  @dev The minimum deposit amount has been updated
+     */
+    event minDepositAmountUpdated(uint256 indexed minDepositAmount);
 
     /**
      *  @dev The deposit timestamp has been set
@@ -74,6 +90,9 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     constructor() ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         lockDuration = 90 days;
         emit LockDurationUpdated(lockDuration);
+
+        minDepositAmount = 10000 * 10 ** decimals();
+        emit minDepositAmountUpdated(minDepositAmount);
     }
 
     /**
@@ -81,8 +100,8 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
-        if (amount == 0) {
-            revert ZeroAmount();
+        if (amount <= minDepositAmount) {
+            revert MinimumDepositNotMet();
         }
 
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
@@ -120,6 +139,17 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
         lockDuration = newDuration;
         emit LockDurationUpdated(lockDuration);
+    }
+
+    /**
+     * @dev Update the minimum deposit amount
+     * @param newMinDepositAmount The new minimum deposit amount
+     */
+    function updateMinDepositAmount(
+        uint256 newMinDepositAmount
+    ) external onlyOwner {
+        minDepositAmount = newMinDepositAmount;
+        emit minDepositAmountUpdated(minDepositAmount);
     }
 
     /**
