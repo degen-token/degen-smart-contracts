@@ -4,12 +4,13 @@ pragma solidity 0.8.20;
 import {IERC20, SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @notice Lock Degen for a set amount of time.
  * @custom:security-contact jacek@degen.tips
  */
-contract DegenLockToken is ERC20, Ownable {
+contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     mapping(address account => uint256) private _depositTimestamps;
@@ -71,7 +72,7 @@ contract DegenLockToken is ERC20, Ownable {
     ) ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
         TOKEN = _token;
 
-        lockDuration = 31536000; // 1 year
+        lockDuration = 90 days;
         emit LockDurationUpdated(lockDuration);
     }
 
@@ -79,7 +80,7 @@ contract DegenLockToken is ERC20, Ownable {
      * @dev Deposit tokens to be locked until the end of the locking period
      * @param amount The amount of tokens to deposit
      */
-    function deposit(uint256 amount) public {
+    function deposit(uint256 amount) external nonReentrant {
         IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
 
@@ -91,7 +92,7 @@ contract DegenLockToken is ERC20, Ownable {
      * @dev Withdraw tokens after the end of the locking period or during the deposit period
      * @param amount The amount of tokens to withdraw
      */
-    function withdraw(uint256 amount) public {
+    function withdraw(uint256 amount) external nonReentrant {
         if (block.timestamp < _depositTimestamps[msg.sender] + lockDuration) {
             revert LockPeriodOngoing();
         }
@@ -104,7 +105,7 @@ contract DegenLockToken is ERC20, Ownable {
      * @dev Update the lock duration
      * @param newDuration The new lock duration in seconds
      */
-    function updateLockDuration(uint256 newDuration) public onlyOwner {
+    function updateLockDuration(uint256 newDuration) external onlyOwner {
         if (newDuration >= lockDuration) {
             revert LockDurationIsLonger();
         }
@@ -116,7 +117,7 @@ contract DegenLockToken is ERC20, Ownable {
     /**
      * @dev Last deposit timestamp for the account
      */
-    function depositTimestamp(address account) public view returns (uint256) {
+    function depositTimestamp(address account) external view returns (uint256) {
         return _depositTimestamps[account];
     }
 
