@@ -13,7 +13,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    mapping(address account => uint256) private _depositTimestamps;
+    mapping(address account => uint256) public depositTimestamps;
 
     /**
      * @dev Name of the token representing the claim on the locked token
@@ -105,7 +105,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         TOKEN.safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
 
-        _depositTimestamps[msg.sender] = block.timestamp;
+        depositTimestamps[msg.sender] = block.timestamp;
         emit DepositTimestampUpdated(msg.sender, block.timestamp);
     }
 
@@ -118,7 +118,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
             revert ZeroAmount();
         }
 
-        if (block.timestamp <= _depositTimestamps[msg.sender] + lockDuration) {
+        if (block.timestamp <= depositTimestamps[msg.sender] + lockDuration) {
             revert LockPeriodOngoing();
         }
 
@@ -148,13 +148,6 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     ) external onlyOwner {
         minDepositAmount = newMinDepositAmount;
         emit MinDepositAmountUpdated(minDepositAmount);
-    }
-
-    /**
-     * @dev Last deposit timestamp for the account
-     */
-    function depositTimestamp(address account) external view returns (uint256) {
-        return _depositTimestamps[account];
     }
 
     /**
