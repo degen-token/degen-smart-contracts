@@ -39,7 +39,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev Minimum amount of tokens that have to be deposited
      */
-    uint256 public minDepositAmount;
+    uint256 public minDepositAmount = 1e22;
 
     /**
      * @dev Withdraw is not possible because the lock period is not over yet
@@ -88,10 +88,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev Construct a new Degen token
      */
-    constructor() ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
-        minDepositAmount = 10000 * 10 ** decimals();
-        emit MinDepositAmountUpdated(minDepositAmount);
-    }
+    constructor() ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {}
 
     /**
      * @dev Deposit tokens to be locked until the end of the locking period
