@@ -28,7 +28,8 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev The ERC20 token to be locked
      */
-    address public constant TOKEN = 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c;
+    IERC20 public constant TOKEN =
+        IERC20(0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c);
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
@@ -101,7 +102,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
             revert MinimumDepositNotMet();
         }
 
-        IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
+        TOKEN.safeTransferFrom(msg.sender, address(this), amount);
         _mint(msg.sender, amount);
 
         _depositTimestamps[msg.sender] = block.timestamp;
@@ -122,7 +123,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         }
 
         _burn(msg.sender, amount);
-        IERC20(TOKEN).safeTransfer(msg.sender, amount);
+        TOKEN.safeTransfer(msg.sender, amount);
     }
 
     /**
