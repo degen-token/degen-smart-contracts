@@ -146,7 +146,7 @@ contract DegenToken is
 
     function nonces(
         address owner
-    ) public view override(ERC20Permit, Nonces) returns (uint256) {
+    ) public view override(ERC20Permit) returns (uint256) {
         return super.nonces(owner);
     }
 }
