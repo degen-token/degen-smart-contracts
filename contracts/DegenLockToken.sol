@@ -95,7 +95,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
-        if (amount <= minDepositAmount) {
+        if (amount < minDepositAmount) {
             revert MinimumDepositNotMet();
         }
 
