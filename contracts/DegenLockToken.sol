@@ -70,12 +70,12 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      *  @dev The lock duration has been updated
      */
-    event LockDurationUpdated(uint256 indexed duration);
+    event LockDurationUpdated(uint256 duration);
 
     /**
      *  @dev The minimum deposit amount has been updated
      */
-    event MinDepositAmountUpdated(uint256 indexed minDepositAmount);
+    event MinDepositAmountUpdated(uint256 minDepositAmount);
 
     /**
      *  @dev The deposit timestamp has been set
