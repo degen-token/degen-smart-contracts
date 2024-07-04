@@ -10,7 +10,9 @@ const AIRDROP1_CLAIM_DEADLINE = Math.round(
 const AIRDROP1_MERKLE_ROOT =
   '0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b';
 
-const AIRDROP1_TRANSFER_AMOUNT = 5544890393n * 10n ** 18n;
+// For readability and compatibility, using BigInt with BigInt constructor is clearer.
+// const AIRDROP1_TRANSFER_AMOUNT = 5544890393n * 10n ** 18n;
+const AIRDROP1_TRANSFER_AMOUNT = BigInt(5544890393) * BigInt(10) ** BigInt(18);
 
 /**
  * Degen Token Constants
@@ -31,7 +33,8 @@ const TokenModule = buildModule('TokenModule', (m) => {
   /**
    * Contracts
    */
-  const degenToken = m.contract('DegenToken', [nextMintingDate]);
+  // The contract method is deprecated. The deployContract method is the recommended way to deploy contracts using Hardhat Ignition.
+  const degenToken = m.deployContract('DegenToken', [nextMintingDate]);
 
   return { degenToken };
 });
@@ -54,7 +57,8 @@ const DegenModule = buildModule('DegenModule', (m) => {
   /**
    * Contracts
    */
-  const degenAirdrop1 = m.contract('DegenAirdrop1', [
+  // The contract method is deprecated. The deployContract method is the recommended way to deploy contracts using Hardhat Ignition.
+  const degenAirdrop1 = m.deployContract('DegenAirdrop1', [
     degenToken,
     airdrop1MerkleRoot,
     airdrop1ClaimDeadline,
