@@ -118,7 +118,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
             revert ZeroAmount();
         }
 
-        if (block.timestamp < _depositTimestamps[msg.sender] + lockDuration) {
+        if (block.timestamp <= _depositTimestamps[msg.sender] + lockDuration) {
             revert LockPeriodOngoing();
         }
 
