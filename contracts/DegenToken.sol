@@ -144,7 +144,7 @@ contract DegenToken is
         super._update(from, to, value);
     }
 
-    // he nonces function should be overridden with ERC20Permit only.
+    // The nonces function should be overridden with ERC20Permit only.
     function nonces(
         address owner
     ) public view override(ERC20Permit) returns (uint256) {
