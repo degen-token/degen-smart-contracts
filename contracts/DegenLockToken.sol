@@ -131,7 +131,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param newDuration The new lock duration in seconds
      */
     function updateLockDuration(uint256 newDuration) external onlyOwner {
-        if (newDuration <= 365 days) {
+        if (newDuration > 365 days) {
             revert LockDurationIsTooLong();
         }
 
