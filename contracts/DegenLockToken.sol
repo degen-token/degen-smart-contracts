@@ -82,7 +82,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      */
     event DepositTimestampUpdated(
         address indexed account,
-        uint256 indexed depositTimestamp
+        uint256 depositTimestamp
     );
 
     /**
