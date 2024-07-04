@@ -34,12 +34,19 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
      */
-    uint256 public lockDuration = 90 days;
+    /**  If the lockDuration and minDepositAmount are only meant to be updated via the provided functions, consider changing their visibility to private and provide public getter functions. */
+    uint256 private lockDuration = 90 days;
+    function getLockDuration() external view returns (uint256) {
+        return lockDuration;
+    }
 
     /**
      * @dev Minimum amount of tokens that have to be deposited
      */
-    uint256 public minDepositAmount = 1e22;
+    uint256 private minDepositAmount = 1e22;
+    function getMinDepositAmount() external view returns (uint256) {
+        return minDepositAmount;
+    }
 
     /**
      * @dev Withdraw is not possible because the lock period is not over yet
@@ -103,7 +110,8 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         _mint(msg.sender, amount);
 
         depositTimestamps[msg.sender] = block.timestamp;
-        emit DepositTimestampUpdated(msg.sender, block.timestamp);
+        /* we can remove the line below to save gas */
+        emit DepositTimestampUpdated(msg.sender, block.timestamp); 
     }
 
     /**
