@@ -51,9 +51,9 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     error NotSupported();
 
     /**
-     *  @dev The lock duration is longer than the previous one
+     *  @dev The lock duration is longer than a year
      */
-    error LockDurationIsLonger();
+    error LockDurationIsTooLong();
 
     /**
      *  @dev Amount of tokens to be locked is zero
@@ -132,9 +132,9 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @dev Update the lock duration
      * @param newDuration The new lock duration in seconds
      */
-    function reduceLockDuration(uint256 newDuration) external onlyOwner {
-        if (newDuration >= lockDuration) {
-            revert LockDurationIsLonger();
+    function updateLockDuration(uint256 newDuration) external onlyOwner {
+        if (newDuration <= 365 days) {
+            revert LockDurationIsTooLong();
         }
 
         lockDuration = newDuration;
