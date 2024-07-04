@@ -33,7 +33,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
      */
-    uint256 public lockDuration;
+    uint256 public lockDuration = 90 days;
 
     /**
      * @dev Minimum amount of tokens that have to be deposited
@@ -88,9 +88,6 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @dev Construct a new Degen token
      */
     constructor() ERC20(TOKEN_NAME, TOKEN_SYMBOL) Ownable(msg.sender) {
-        lockDuration = 90 days;
-        emit LockDurationUpdated(lockDuration);
-
         minDepositAmount = 10000 * 10 ** decimals();
         emit MinDepositAmountUpdated(minDepositAmount);
     }
@@ -100,7 +97,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
-        if (amount <= minDepositAmount) {
+        if (amount < minDepositAmount) {
             revert MinimumDepositNotMet();
         }
 
