@@ -28,7 +28,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev The ERC20 token to be locked
      */
-    address public immutable TOKEN = 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c;
+    address public constant TOKEN = 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c;
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
@@ -74,7 +74,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      *  @dev The minimum deposit amount has been updated
      */
-    event minDepositAmountUpdated(uint256 indexed minDepositAmount);
+    event MinDepositAmountUpdated(uint256 indexed minDepositAmount);
 
     /**
      *  @dev The deposit timestamp has been set
@@ -92,7 +92,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         emit LockDurationUpdated(lockDuration);
 
         minDepositAmount = 10000 * 10 ** decimals();
-        emit minDepositAmountUpdated(minDepositAmount);
+        emit MinDepositAmountUpdated(minDepositAmount);
     }
 
     /**
@@ -149,7 +149,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         uint256 newMinDepositAmount
     ) external onlyOwner {
         minDepositAmount = newMinDepositAmount;
-        emit minDepositAmountUpdated(minDepositAmount);
+        emit MinDepositAmountUpdated(minDepositAmount);
     }
 
     /**
