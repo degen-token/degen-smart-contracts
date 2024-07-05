@@ -35,7 +35,8 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @dev Lock duration in seconds, period starts after the deposit timestamp
      */
     /**  If the lockDuration and minDepositAmount are only meant to be updated via the provided functions, consider changing their visibility to private and provide public getter functions. */
-    uint256 private lockDuration = 90 days;
+    // using internal to reduce gas fee
+    uint256 internal lockDuration = 90 days;
     function getLockDuration() external view returns (uint256) {
         return lockDuration;
     }
@@ -43,7 +44,9 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     /**
      * @dev Minimum amount of tokens that have to be deposited
      */
-    uint256 private minDepositAmount = 1e22;
+    //  using internal to reduce gas fee
+    // Since these variables are only modified by the owner through dedicated functions, we can change their visibility from public to internal. This reduces the gas cost for reading these values within the contract.
+    uint256 internal minDepositAmount = 1e22;
     function getMinDepositAmount() external view returns (uint256) {
         return minDepositAmount;
     }
