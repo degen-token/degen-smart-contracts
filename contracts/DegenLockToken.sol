@@ -29,7 +29,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
      * @dev The ERC20 token to be locked
      */
     IERC20 public constant TOKEN =
-        IERC20(0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c);
+        IERC20(0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed);
 
     /**
      * @dev Lock duration in seconds, period starts after the deposit timestamp
