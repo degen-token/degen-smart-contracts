@@ -6,8 +6,8 @@
     "preinstall": "npx only-allow pnpm",
     "compile": "npx hardhat compile",
     "deploy:degen": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop3.ts --network degen_mainnet",
-    "deploy:base": "npx hardhat ignition deploy ignition/modules/Airdrop2Season4.ts --network base_mainnet",
-    "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop2.ts --network base_sepolia",
+    "deploy:base": "npx hardhat ignition deploy ignition/modules/DegenLockToken.ts --network base_mainnet",
+    "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/DegenLockToken.ts --network base_sepolia",
     "deploy:degen-sepolia": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network degen_sepolia",
     "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input airdrop/liquidity_mining_season3.json",
     "generate-merkle-root:example": "ts-node scripts/generate-merkle-root.ts --input airdrop/example.json",
@@ -21,10 +21,12 @@
     "verify:otc-vesting:base": "npx hardhat verify --network base_mainnet 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
     "verify:otc-escrow:base": "npx hardhat verify --network base_mainnet 0x4340A66FE6A39326B1A135F2D95167F357f0Fa21 0xD049b3064990869C9F73bD7896271d83325D2067 0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 435000000000000000000 1848296798000000000000000000 0x4200000000000000000000000000000000000006 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
     "verify:otc-vesting:base-sepolia": "npx hardhat verify --network base_sepolia 0xD338df63D7005783da8e7F6A6D53556240A6A336 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
-    "verify:otc-escrow:base-sepolia": "npx hardhat verify --network base_sepolia 0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896 0xD049b3064990869C9F73bD7896271d83325D2067 0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d 0xD338df63D7005783da8e7F6A6D53556240A6A336 435000000000000000000 1848296798000000000000000000 0x4200000000000000000000000000000000000006 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed"
+    "verify:otc-escrow:base-sepolia": "npx hardhat verify --network base_sepolia 0xBB0D5b7A33C62eBa1830670b9b28d941e36c2896 0xD049b3064990869C9F73bD7896271d83325D2067 0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d 0xD338df63D7005783da8e7F6A6D53556240A6A336 435000000000000000000 1848296798000000000000000000 0x4200000000000000000000000000000000000006 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+    "verify:lock:base-sepolia": "npx hardhat verify --network base_sepolia 0x815175FEc764A63C0546492f2136d6cA2365d9B7"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2"
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts-upgradeable": "^5.0.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition-ethers": "^0.15.5",
@@ -35,10 +37,10 @@
     "dotenv": "^16.4.5",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^6.13.1",
-    "hardhat": "^2.22.5",
-    "mocha": "^10.4.0",
+    "hardhat": "^2.22.6",
+    "mocha": "^10.6.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }
