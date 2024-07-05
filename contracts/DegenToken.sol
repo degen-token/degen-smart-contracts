@@ -101,6 +101,7 @@ contract DegenToken is
      * @param to The address of the target account
      * @param amount The number of tokens to be minted
      */
+    //  We can optimize this by combining these writes into a single operation using a block variable:
     function mint(address to, uint96 amount) external onlyOwner {
         if (block.timestamp < mintingAllowedAfter) {
             revert MintingDateNotReached();
@@ -109,18 +110,17 @@ contract DegenToken is
         if (to == address(0)) {
             revert MintToZeroAddressBlocked();
         }
-
-        // record the mint
-        mintingAllowedAfter = block.timestamp + MINIMUM_TIME_BETWEEN_MINTS;
-
-        // mint the amount
-        if (amount > (totalSupply() * MINT_CAP) / 100) {
-            revert DegenMintCapExceeded();
+        //use with caution and ensure calculations are within safe bounds
+        unchecked {
+            uint256 newMintingAllowedAfter = block.timestamp + MINIMUM_TIME_BETWEEN_MINTS;
+            if (amount > (totalSupply() * MINT_CAP) / 100) {
+                revert DegenMintCapExceeded();
+            }
         }
 
         _mint(to, amount);
+        mintingAllowedAfter = newMintingAllowedAfter;
     }
-
     /**
      * @dev Pause all token transfers
      */
