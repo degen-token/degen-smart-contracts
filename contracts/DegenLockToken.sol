@@ -52,7 +52,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     error NotSupported();
 
     /**
-     *  @dev The lock duration is longer than a year
+     *  @dev The new lock duration is too long
      */
     error LockDurationIsTooLong();
 
