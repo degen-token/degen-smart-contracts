@@ -78,11 +78,21 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
     event MinDepositAmountUpdated(uint256 minDepositAmount);
 
     /**
-     *  @dev The deposit timestamp has been set
+     *  @dev Tokens have been deposited
      */
-    event DepositTimestampUpdated(
+    event Deposit(
         address indexed account,
-        uint256 depositTimestamp
+        uint256 depositTimestamp,
+        uint256 amount
+    );
+
+    /**
+     *  @dev Tokens have been withdrawn
+     */
+    event Withdraw(
+        address indexed account,
+        uint256 depositTimestamp,
+        uint256 amount
     );
 
     /**
@@ -103,7 +113,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
         _mint(msg.sender, amount);
 
         depositTimestamps[msg.sender] = block.timestamp;
-        emit DepositTimestampUpdated(msg.sender, block.timestamp);
+        emit Deposit(msg.sender, block.timestamp, amount);
     }
 
     /**
@@ -121,6 +131,7 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
         _burn(msg.sender, amount);
         TOKEN.safeTransfer(msg.sender, amount);
+        emit Withdraw(msg.sender, block.timestamp, amount);
     }
 
     /**
