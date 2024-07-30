@@ -32,16 +32,16 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition-ethers": "^0.15.5",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.8",
-    "chai": "^4.4.1",
+    "@nomicfoundation/hardhat-verify": "^2.0.9",
+    "chai": "^4.5.0",
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
     "ethereumjs-util": "^7.1.5",
-    "ethers": "^6.13.1",
-    "hardhat": "^2.22.6",
-    "mocha": "^10.6.0",
+    "ethers": "^6.13.2",
+    "hardhat": "^2.22.7",
+    "mocha": "^10.7.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   },
   "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

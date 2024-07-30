@@ -102,10 +102,15 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
     /**
      * @dev Deposit tokens to be locked until the end of the locking period
+     *
+     * Note: A new deposit resets the lock duration for all DEGEN tokens to start
+     * from the latest deposit timestamp. Even if some tokens were previously
+     * unlocked, a new deposit will lock all tokens for the full lockDuration.
+     *
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
-        if (amount < minDepositAmount) {
+        if (balanceOf(msg.sender) + amount < minDepositAmount) {
             revert MinimumDepositNotMet();
         }
 
@@ -149,6 +154,12 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
     /**
      * @dev Update the minimum deposit amount
+     *
+     * Note: If minDepositAmount is increased, users with deposits greater than or
+     * equal to the old minDepositAmount but less than the new minDepositAmount
+     * will have a locked DEGEN balance smaller than the new minDepositAmount.
+     * This does not affect their ability to withdraw their locked DEGEN.
+     *
      * @param newMinDepositAmount The new minimum deposit amount
      */
     function updateMinDepositAmount(
