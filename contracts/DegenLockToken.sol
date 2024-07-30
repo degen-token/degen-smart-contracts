@@ -149,6 +149,12 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
     /**
      * @dev Update the minimum deposit amount
+     *
+     * Note: If minDepositAmount is increased, users with deposits greater than or
+     * equal to the old minDepositAmount but less than the new minDepositAmount
+     * will have a locked DEGEN balance smaller than the new minDepositAmount.
+     * This does not affect their ability to withdraw their locked DEGEN.
+     *
      * @param newMinDepositAmount The new minimum deposit amount
      */
     function updateMinDepositAmount(
