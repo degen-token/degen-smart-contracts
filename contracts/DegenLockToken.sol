@@ -102,6 +102,11 @@ contract DegenLockToken is ERC20, Ownable, ReentrancyGuard {
 
     /**
      * @dev Deposit tokens to be locked until the end of the locking period
+     *
+     * Note: A new deposit resets the lock duration for all DEGEN tokens to start
+     * from the latest deposit timestamp. Even if some tokens were previously
+     * unlocked, a new deposit will lock all tokens for the full lockDuration.
+     *
      * @param amount The amount of tokens to deposit
      */
     function deposit(uint256 amount) external nonReentrant {
