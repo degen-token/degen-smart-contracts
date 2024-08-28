@@ -38,7 +38,7 @@
     "dotenv": "^16.4.5",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^6.13.2",
-    "hardhat": "^2.22.8",
+    "hardhat": "^2.22.9",
     "mocha": "^10.7.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
