@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "compile": "npx hardhat compile",
-    "deploy:degen": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop4.ts --network degen_mainnet",
+    "deploy:degen": "npx hardhat ignition deploy ignition/modules/Airdrop2Season7.ts --network degen_mainnet",
     "deploy:base": "npx hardhat ignition deploy ignition/modules/RaindropSeason1.ts --network base_mainnet",
     "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/RaindropSeason1.ts --network base_sepolia",
     "deploy:degen-sepolia": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop1.ts --network degen_sepolia",
