@@ -6,7 +6,7 @@ import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 const DEGEN_TOKEN = '0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387';
 
 const AIRDROP_CLAIM_DEADLINE = Math.round(
-  new Date('2024-08-30').getTime() / 1000
+  new Date('2024-09-27').getTime() / 1000
 );
 
 const AIRDROP_MERKLE_ROOT =
