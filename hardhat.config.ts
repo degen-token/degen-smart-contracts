@@ -29,6 +29,7 @@ const config: HardhatUserConfig = {
       base: process.env.BASESCAN_API_KEY ?? '',
       baseGoerli: process.env.BASESCAN_API_KEY ?? '',
       baseSepolia: process.env.BASESCAN_API_KEY ?? '',
+      degen: 'abc',
     },
     customChains: [
       {
@@ -37,6 +38,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: 'https://api-sepolia.basescan.org/api',
           browserURL: 'https://sepolia.basescan.org',
+        },
+      },
+      {
+        network: 'degen',
+        chainId: 666666666,
+        urls: {
+          apiURL: 'https://explorer.degen.tips/api',
+          browserURL: 'https://explorer.degen.tips/',
         },
       },
     ],

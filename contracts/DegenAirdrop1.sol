@@ -69,6 +69,11 @@ contract DegenAirdrop1 is Ownable {
      */
     error NoWithdrawDuringClaim();
 
+    /**
+     *  @dev The caller account is not authorized to claim
+     */
+    error UnauthorizedClaim(address sender);
+
     constructor(
         address token_,
         bytes32 merkleRoot_,
@@ -118,6 +123,8 @@ contract DegenAirdrop1 is Ownable {
         bytes32[] calldata merkleProof
     ) external virtual {
         if (block.timestamp > END_TIME) revert ClaimWindowFinished();
+
+        if (account != _msgSender()) revert UnauthorizedClaim(account);
 
         if (isClaimed(index)) revert AlreadyClaimed();
 
