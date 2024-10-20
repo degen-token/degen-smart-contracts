@@ -27,8 +27,8 @@
     "verify:lock:base-sepolia": "npx hardhat verify --network base_sepolia 0x815175FEc764A63C0546492f2136d6cA2365d9B7"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2",
-    "@openzeppelin/contracts-upgradeable": "^5.0.2"
+    "@openzeppelin/contracts": "^5.1.0",
+    "@openzeppelin/contracts-upgradeable": "^5.1.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition-ethers": "^0.15.6",
@@ -38,7 +38,7 @@
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
     "ethereumjs-util": "^7.1.5",
-    "ethers": "^6.13.3",
+    "ethers": "^6.13.4",
     "hardhat": "^2.22.13",
     "mocha": "^10.7.3",
     "ts-node": "^10.9.2",
