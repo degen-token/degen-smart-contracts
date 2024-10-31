@@ -31,7 +31,7 @@
     "@openzeppelin/contracts-upgradeable": "^5.1.0"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.6",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.7",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.11",
     "chai": "^4.5.0",
@@ -39,8 +39,8 @@
     "dotenv": "^16.4.5",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^6.13.4",
-    "hardhat": "^2.22.13",
-    "mocha": "^10.7.3",
+    "hardhat": "^2.22.15",
+    "mocha": "^10.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
