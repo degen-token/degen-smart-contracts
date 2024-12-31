@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "compile": "npx hardhat compile",
-    "deploy:degen": "npx hardhat ignition deploy ignition/modules/LiquidityMiningAirdrop5.ts --network degen_mainnet",
+    "deploy:degen": "npx hardhat ignition deploy ignition/modules/Airdrop2Season11.ts --network degen_mainnet",
     "deploy:base": "npx hardhat ignition deploy ignition/modules/RaindropSeason3.ts --network base_mainnet",
     "deploy:base-sepolia": "npx hardhat ignition deploy ignition/modules/DegenLockToken.ts --network base_sepolia",
     "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input airdrop/airdrop2_season11.json",
@@ -17,7 +17,7 @@
     "verify:airdrop:base": "npx hardhat verify --network base_mainnet 0xef9816e228Bb88a81178CD37C3fAB926BfC67517 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xfb1d58774796ad8eb17d726c1b8e3640e7a1dca38c54de3287ca68792111dbb3 1732924800",
     "verify:token:base-sepolia": "npx hardhat verify --network base_sepolia 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 1830297600",
     "verify:airdrop:base-sepolia": "npx hardhat verify --network base_sepolia 0x2ED740E95F7a220FE3B0A6d9e9151f6AA111Dcad 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b 1714521600",
-    "verify:airdrop:degen": "npx hardhat verify --network degen_mainnet 0x4da03d48b4197B9a36d7568780B9956F978f1b3A 0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387 0x61dbf7bb51e655373346fb44f54998d0e32afec719da84318672e945ddab8115 1730332800",
+    "verify:airdrop:degen": "npx hardhat verify --network degen_mainnet 0x08D830997d53650AAf9194F0d9Ff338b6f814fce 0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387 0x5fdc1b30e66f464c412fcbba585cb59e2ea5a5fd1017f4589555e0e1e2d7000e 1738281600",
     "verify:otc-vesting:base": "npx hardhat verify --network base_mainnet 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
     "verify:otc-escrow:base": "npx hardhat verify --network base_mainnet 0x4340A66FE6A39326B1A135F2D95167F357f0Fa21 0xD049b3064990869C9F73bD7896271d83325D2067 0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d 0x7d00D30269fC62Ab5fAb54418feeDBdc71FDb25f 435000000000000000000 1848296798000000000000000000 0x4200000000000000000000000000000000000006 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
     "verify:otc-vesting:base-sepolia": "npx hardhat verify --network base_sepolia 0xD338df63D7005783da8e7F6A6D53556240A6A336 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xD049b3064990869C9F73bD7896271d83325D2067 1848296798000000000000000000 1707696000 1723420800 1770854400",
