@@ -3,7 +3,7 @@
  */
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
+pragma solidity 0.8.29;
 
 interface IERC20 {
     function transfer(
