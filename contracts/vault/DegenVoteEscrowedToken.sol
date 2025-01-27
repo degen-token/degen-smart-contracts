@@ -164,7 +164,7 @@ abstract contract ERC721DelegateEnumerable is ERC721, ERC721Enumerable {
         address from,
         address to,
         uint256 tokenId,
-        bytes memory _data
+        bytes memory /*_data*/
     ) internal virtual {
         _delegate(from, to, tokenId);
     }
@@ -366,10 +366,10 @@ abstract contract ERC721DelegateEnumerable is ERC721, ERC721Enumerable {
      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _afterTokenTransfer(
-        address from,
+        address /* from */,
         address to,
         uint256 tokenId,
-        uint256 batchSize
+        uint256 /* batchSize */
     ) internal virtual {
         _update(to, tokenId, _msgSender());
     }
@@ -1034,7 +1034,7 @@ abstract contract veDEGEN is ERC721DelegateEnumerable, Ownable, ReentrancyGuard 
         address receiver,
         address owner,
         uint256 tokenId
-    ) external nonReentrant returns (uint256 assets) {
+    ) external nonReentrant returns (uint256 /* assets */) {
         this.withdraw(shares, receiver, owner, tokenId);
     }
 
