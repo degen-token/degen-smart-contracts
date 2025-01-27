@@ -1034,8 +1034,9 @@ abstract contract veDEGEN is ERC721DelegateEnumerable, Ownable, ReentrancyGuard 
         address receiver,
         address owner,
         uint256 tokenId
-    ) external nonReentrant returns (uint256 /* assets */) {
+    ) external nonReentrant returns (uint256 assets) {
         this.withdraw(shares, receiver, owner, tokenId);
+        return convertToAssets(shares);
     }
 
     /// @notice Withdraw all tokens for `_tokenId` and send them to receiver
