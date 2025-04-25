@@ -10,7 +10,7 @@ const AIRDROP_CLAIM_DEADLINE = Math.round(
 );
 
 const AIRDROP_MERKLE_ROOT =
-  '0xbd134a60439798485b8d4555a340a7db08f176bbf6e8c4faacff0891ba6aceb6';
+  '0xb143d2d48df882284f71ffd8bd974d2b72607e6a0a63edadfe8fcbc6b9029671';
 
 const Airdrop2Season15 = buildModule('Airdrop2Season15', (m) => {
   /**
