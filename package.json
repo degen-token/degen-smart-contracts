@@ -14,7 +14,7 @@
     "test": "npx hardhat test",
     "test:report-gas": "REPORT_GAS=true npx hardhat test",
     "verify:token:base": "npx hardhat verify --network base_mainnet 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 1830297600",
-    "verify:airdrop:base": "npx hardhat verify --network base_mainnet 0xd6F26f222640511eD9D983CCE1b2eB37eccd4295 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0xe50b067471ce13937a5abc1cb69dbcf880f73247b77f942cc4b5b90f462b4331 1750982400",
+    "verify:airdrop:base": "npx hardhat verify --network base_mainnet 0x70BF556EdeDfdD46Af42016fFD0236c385cd216E 0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed 0x3acbf58f49ad1a3778b6b60aab5056a11ce971ab42d3eadf77ccbfd6fdb6cc83 1756425600",
     "verify:token:base-sepolia": "npx hardhat verify --network base_sepolia 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 1830297600",
     "verify:airdrop:base-sepolia": "npx hardhat verify --network base_sepolia 0x2ED740E95F7a220FE3B0A6d9e9151f6AA111Dcad 0xfee293840D23B0B2De8C55e1Cf7A9F01C157767c 0x04395c7a299761c2cb47a74f8b15c4c829cba9cb793c22b1ed8e63eb89fadd3b 1714521600",
     "verify:airdrop:degen": "npx hardhat verify --network degen_mainnet 0x08D830997d53650AAf9194F0d9Ff338b6f814fce 0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387 0x5fdc1b30e66f464c412fcbba585cb59e2ea5a5fd1017f4589555e0e1e2d7000e 1738281600",
