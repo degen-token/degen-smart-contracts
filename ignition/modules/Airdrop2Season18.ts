@@ -12,7 +12,7 @@ const AIRDROP_CLAIM_DEADLINE = Math.round(
 const AIRDROP_MERKLE_ROOT =
   '0x3acbf58f49ad1a3778b6b60aab5056a11ce971ab42d3eadf77ccbfd6fdb6cc83';
 
-const Airdrop2Season17 = buildModule('Airdrop2Season17', (m) => {
+const Airdrop2Season18 = buildModule('Airdrop2Season18', (m) => {
   /**
    * Parameters
    */
@@ -41,4 +41,4 @@ const Airdrop2Season17 = buildModule('Airdrop2Season17', (m) => {
   return { degenAirdrop };
 });
 
-export default Airdrop2Season17;
+export default Airdrop2Season18;
